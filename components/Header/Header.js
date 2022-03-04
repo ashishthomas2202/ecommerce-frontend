@@ -21,8 +21,8 @@ export default function Header() {
   });
 
   const actionItems = [
-    { name: 'Favorite', link: '/' },
-    { name: 'Shopping Bag', link: '/' },
+    { name: 'Favorite', link: '/favorite' },
+    { name: 'Shopping Bag', link: '/shoppingBag' },
   ];
 
   const actions = actionItems.map((item, i) => {
