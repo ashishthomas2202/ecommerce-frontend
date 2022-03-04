@@ -1,0 +1,32 @@
+@import '../../styles/variables.module.scss';
+
+.footer {
+  width: 100vw;
+  background-color: $footer-bgcolor;
+  position: absolute;
+  bottom: 0;
+
+  .container {
+    ul {
+      padding-left: 0;
+      li {
+        list-style: none;
+      }
+    }
+
+    .menu {
+      display: flex;
+      justify-content: space-evenly;
+
+      .icon {
+        height: 15px;
+        padding-right: 10px;
+      }
+    }
+
+    .copyright {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
