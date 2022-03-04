@@ -5,9 +5,9 @@ import style from './Header.module.scss';
 export default function Header() {
   const menuItems = [
     { name: 'Home', link: '/' },
-    { name: 'Shop', link: '/' },
-    { name: 'About', link: '/' },
-    { name: 'Contact', link: '/' },
+    { name: 'Shop', link: '/shop' },
+    { name: 'About', link: '/about' },
+    { name: 'Contact', link: '/contact' },
   ];
 
   const menu = menuItems.map((item, i) => {
