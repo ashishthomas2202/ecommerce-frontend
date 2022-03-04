@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductGrid from '../../components/ProductGrid/ProductGrid';
+import ProductGrid from '../../components/ui/ProductGrid/ProductGrid';
 
 export default function Shop() {
   return (
