@@ -47,7 +47,6 @@ export default function Footer() {
                   <li key={item.name + itemId}>
                     <Link href={item.link}>
                       <a>
-                        {console.log(item.icon)}
                         {item.icon ? (
                           <img
                             className={style.icon}

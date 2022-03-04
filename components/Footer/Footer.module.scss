@@ -3,6 +3,7 @@
 .footer {
   width: 100vw;
   background-color: $footer-bgcolor;
+  padding: $footer-padding;
   position: absolute;
   bottom: 0;
 
@@ -16,7 +17,7 @@
 
     .menu {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: space-between;
 
       .icon {
         height: 15px;
