@@ -1,6 +1,14 @@
 .product {
-  background-color: salmon;
-  width: 300px;
-  padding-bottom: 177.78%;
-  display: inline-block;
+  // background-color: salmon;
+  position: relative;
+  padding-bottom: 150%;
+
+  .image {
+    height: 90%;
+    width: 100%;
+    position: absolute;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 }
