@@ -4,7 +4,7 @@ import ProductGrid from '../../components/ui/ProductGrid/ProductGrid';
 export default function Shop() {
   return (
     <div>
-      <ProductGrid />
+      <ProductGrid title="Shop" />
     </div>
   );
 }

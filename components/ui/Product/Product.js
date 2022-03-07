@@ -10,9 +10,13 @@ export default function Product({ data }) {
         className={style.image}
         style={{ backgroundImage: `url(${data.image[0]})` }}
       ></div>
-      <div className={style.name}>{data.name}</div>
-      <div className={style.price}>{data.price}</div>
-      <div className={style.addToCart}>Add To Cart</div>
+      <ul className={style.info}>
+        <li className={style.name}>{data.name}</li>
+        <li className={style.price}>${data.price}</li>
+        <li>
+          <button className={style.addToCart}>Add to cart</button>
+        </li>
+      </ul>
     </div>
   );
 }
