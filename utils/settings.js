@@ -8,7 +8,7 @@ export const Shop = {
   collections: [
     { name: 'Mens', link: '/' },
     { name: 'Womens', link: '/' },
-    { name: 'KidsWear', link: '/' },
+    { name: 'Kids Wear', link: '/' },
     { name: 'Accessories', link: '/' },
     { name: 'Shirt', link: '/' },
     { name: 'Jeans', link: '/' },
