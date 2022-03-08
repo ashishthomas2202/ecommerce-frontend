@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import Collection from './Collection';
+import { Brand } from '../utils/settings';
 import uniqueValidator from 'mongoose-unique-validator';
+import _ from 'lodash';
 
 // let objectId = mongoose.Types.ObjectId();
 
@@ -10,20 +12,22 @@ const productSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-      maxlength: 15,
       unique: true,
     },
     name: {
       type: String,
       trim: true,
       required: true,
-      maxlength: 150,
-      unique: true,
+    },
+    brand: {
+      type: String,
+      trim: true,
+      required: true,
+      default: Brand.name,
     },
     ribbon: {
       type: String,
       trim: true,
-      maxlength: 20,
     },
     collectionId: [
       {
@@ -76,10 +80,15 @@ const productSchema = new mongoose.Schema(
       min: 0.01,
       max: 99999,
     },
+    quantity: {
+      type: Number,
+      trim: true,
+      min: 0,
+    },
     onSale: {
       type: Boolean,
       required: true,
-      default: true,
+      default: false,
     },
     discount: {
       amount: {
@@ -170,6 +179,11 @@ const productSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+productSchema.virtual('slug').get(function () {
+  return _.kebabCase(this.name);
+});
+
 productSchema.plugin(uniqueValidator);
 
 const Product =
