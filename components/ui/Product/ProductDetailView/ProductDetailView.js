@@ -2,7 +2,7 @@ import React from 'react';
 import style from './ProductDetailView.module.scss';
 import ProductDetailSection from '../ProductDetailSection/ProductDetailSection';
 import ProductCarousel from '../ProductCarousel/ProductCarousel';
-import ProductContent from '../../ProductContent/ProductContent';
+import ProductContent from '../ProductContent/ProductContent';
 
 export default function ProductDetailView({ product }) {
   return (

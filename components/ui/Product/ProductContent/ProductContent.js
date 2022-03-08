@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './ProductContent.module.scss';
 
-import ProductDetailSection from '../Product/ProductDetailSection/ProductDetailSection';
+import ProductDetailSection from '../ProductDetailSection/ProductDetailSection';
 export default function ProductContent({ product }) {
   return <div className={style.productContent}>Des</div>;
 }
