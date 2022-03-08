@@ -1,10 +1,11 @@
 import React from 'react';
 import style from './ProductGrid.module.scss';
 import Product from '../Product/Product';
-import { data } from '../../../../utils/data';
+import { data as dat } from '../../../../utils/data';
 
-export default function ProductGrid(title) {
-  const products = data.products;
+export default function ProductGrid({ title, data }) {
+  console.log(data[0].collections);
+  const products = dat.products;
 
   // const pageTitle = ;
 

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Collection } from 'mongoose';
 
 const connection = {};
 
@@ -41,6 +41,30 @@ async function disconnect() {
   }
 }
 
-const db = { connect, disconnect };
+function convertDocToObj(doc) {
+  doc._id = doc._id.toString();
+  doc.createdAt = doc.createdAt.toString();
+  doc.updatedAt = doc.updatedAt.toString();
+  
+  
+  const collections = doc.collections.map((collection) => {
+    collection._id = collection._id.toString();
+    collection.createdAt = collection.createdAt.toString();
+    collection.updatedAt = collection.updatedAt.toString();
+    return collection;
+  });
+
+  doc.collections = collections;
+
+  const images = doc.images.map((image) => {
+    image._id = image._id.toString();
+    return image;
+  });
+  doc.images = images;
+
+  return doc;
+}
+
+const db = { connect, disconnect, convertDocToObj };
 
 export default db;

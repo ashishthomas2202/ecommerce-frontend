@@ -29,7 +29,7 @@ const productSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    collectionId: [
+    collections: [
       {
         type: mongoose.ObjectId,
         ref: 'Collection',

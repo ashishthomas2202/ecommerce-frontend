@@ -5,7 +5,7 @@ export const data = {
       name: 'Nike Dri-FIT',
       brand: 'Nike',
       ribbon: 'New Arrival',
-      collectionId: ['622783ba8b7f094ee4bb65d1', '622783ba8b7f094ee4bb65d5'],
+      collections: ['622783ba8b7f094ee4bb65d1', '622783ba8b7f094ee4bb65d5'],
       images: [
         {
           name: 'Nike-Dri-FIT-1',
@@ -69,7 +69,7 @@ export const data = {
       name: 'Nike Dri-FIT Legend',
       brand: 'Nike',
       ribbon: 'New Arrival',
-      collectionId: ['622783ba8b7f094ee4bb65d1', '622783ba8b7f094ee4bb65d5'],
+      collections: ['622783ba8b7f094ee4bb65d1', '622783ba8b7f094ee4bb65d5'],
       images: [
         {
           name: 'Nike-Dri-FIT-Legend-1',
