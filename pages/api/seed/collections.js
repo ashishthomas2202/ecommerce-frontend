@@ -1,7 +1,7 @@
 import nc from 'next-connect';
 import Collection from '../../../models/Collection';
 import db from '../../../utils/db';
-import { data } from '../../../utils/seedCollectionData';
+import { data } from '../../../utils/seed/collectionData';
 
 const handler = nc();
 
