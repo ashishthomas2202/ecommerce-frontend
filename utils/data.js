@@ -1,11 +1,17 @@
 export const data = {
   products: [
     {
+      id: 'uejgwfutqwebruyflbwoiryf126152',
       sku: 'DM5671-100',
       brand: 'Nike',
       name: 'Nike Dri-FIT',
+      slug: 'nike-dri-fit',
       collection: ['Shirts'],
-      image: [
+      images: [
+        'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/959df6de-7c99-4df4-81c7-6d31fc999f02/dri-fit-mens-graphic-training-t-shirt-DHS3DS.png',
+        'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/ad917fcf-68b7-4d0f-90b3-c4acbeda5af8/dri-fit-mens-graphic-training-t-shirt-DHS3DS.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/6bcbe757-19d0-4e35-9838-36d242ad4584/dri-fit-mens-graphic-training-t-shirt-DHS3DS.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/f506560b-a3f4-4d96-b042-6fa39e727a51/dri-fit-mens-graphic-training-t-shirt-DHS3DS.png',
         'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/959df6de-7c99-4df4-81c7-6d31fc999f02/dri-fit-mens-graphic-training-t-shirt-DHS3DS.png',
         'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/ad917fcf-68b7-4d0f-90b3-c4acbeda5af8/dri-fit-mens-graphic-training-t-shirt-DHS3DS.png',
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/6bcbe757-19d0-4e35-9838-36d242ad4584/dri-fit-mens-graphic-training-t-shirt-DHS3DS.png',
@@ -22,15 +28,16 @@ export const data = {
       price: 25.99,
     },
     {
+      id: 'uejgwfutqwebruyflbwoiryf126153',
       sku: '718833-451',
       brand: 'Nike',
       name: 'Nike Dri-FIT Legend',
+      slug: 'nike-dri-fit-legend',
       collection: ['Shirts'],
-      image: [
+      images: [
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/a62df4c1-09fe-48ab-8a3f-1110b140f665/dri-fit-legend-mens-training-t-shirt-knTPqEkv.png',
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/b710413e-da8e-479d-ae79-7da119dd3a35/dri-fit-legend-mens-training-t-shirt-knTPqEkv.png',
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/yo3dlqm40dnoy8vkth6w/dri-fit-legend-mens-training-t-shirt-knTPqEkv.png',
-        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/f506560b-a3f4-4d96-b042-6fa39e727a51/dri-fit-mens-graphic-training-t-shirt-DHS3DS.png',
       ],
       description:
         'The Nike Dri-FIT Legend T-Shirt is an essential layer with an odor-resistant finish that helps keep you fresh through workouts at any level. Lightweight fabric breathes and wicks sweat so you stay cool and dry from warmups well into the afterburn.',
@@ -43,11 +50,13 @@ export const data = {
       price: 22.97,
     },
     {
+      id: 'uejgwfutqwebruyflbwoiryf126154',
       sku: 'M11332P598N-65N',
       brand: 'Nike',
       name: 'Nike Swoosh',
+      slug: 'nike-swoosh',
       collection: ['Shirts'],
-      image: [
+      images: [
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/ed8e09bd-0258-46ea-b4c6-f153c963b5f6/swoosh-mens-t-shirt-jD3h5Q.png',
       ],
       description:
@@ -61,11 +70,13 @@ export const data = {
       price: 38.0,
     },
     {
+      id: 'uejgwfutqwebruyflbwoiryf1261525',
       sku: 'DC5094-824',
       brand: 'Nike',
       name: 'Nike Sportswear Swoosh',
+      slug: 'nike-sports-swoosh',
       collection: ['Shirts'],
-      image: [
+      images: [
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/86250e45-6ce4-4e08-8085-e6ae13746ca7/sportswear-swoosh-mens-t-shirt-LzncrX.png',
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/568a3bfb-8588-418f-906f-b3227cc6caa6/sportswear-swoosh-mens-t-shirt-LzncrX.png',
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/4c17ed68-13f0-4621-96d3-a157b41c94b5/sportswear-swoosh-mens-t-shirt-LzncrX.png',
@@ -82,11 +93,13 @@ export const data = {
       price: 43.88,
     },
     {
+      id: 'uejgwfutqwebruyflbwoiryf126156',
       sku: 'DC5094-814',
       brand: 'Nike',
       name: 'Nike Sportswear Swoosh',
+      slug: 'nike-sportswear-swoosh',
       collection: ['Shirts'],
-      image: [
+      images: [
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/9ecf8f6f-1225-4ac6-883e-ba572d6d55b9/sportswear-swoosh-mens-t-shirt-LzncrX.png',
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/e0d952c4-7c97-4309-9a2b-62de9803b7d1/sportswear-swoosh-mens-t-shirt-LzncrX.png',
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/803ceacf-4d26-4480-bbc7-70f48fe7749d/sportswear-swoosh-mens-t-shirt-LzncrX.png',
@@ -103,11 +116,13 @@ export const data = {
       price: 43.88,
     },
     {
+      id: 'uejgwfutqwebruyflbwoiryf126157',
       sku: 'DA0019-469',
       brand: 'Nike',
       name: 'Nike Sportswear',
+      slug: 'nike-sportswear',
       collection: ['Pants'],
-      image: [
+      images: [
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/84d706fa-9e68-44e5-b4cf-411b714be981/sportswear-mens-classic-fleece-pants-DgDCHh.png',
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/5dfda7ca-6933-4272-9e58-c2417c8387f9/sportswear-mens-classic-fleece-pants-DgDCHh.png',
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/6830c839-8593-40af-9d4e-28239f924e4a/sportswear-mens-classic-fleece-pants-DgDCHh.png',
@@ -125,11 +140,13 @@ export const data = {
       price: 91.99,
     },
     {
+      id: 'uejgwfutqwebruyflbwoiryf126158',
       sku: 'DA0019-816',
       brand: 'Nike',
       name: 'Nike Sportswear',
+      slug: 'nike-sportswear',
       collection: ['Pants'],
-      image: [
+      images: [
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/4c188187-f115-4ba4-8134-c20779de1e0f/sportswear-mens-classic-fleece-pants-DgDCHh.png',
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/65d30d41-9e9c-4a2d-aeca-7159f9c27ba9/sportswear-mens-classic-fleece-pants-DgDCHh.png',
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/96828e28-3791-4d31-9a62-f8441d44bec2/sportswear-mens-classic-fleece-pants-DgDCHh.png',
@@ -147,11 +164,13 @@ export const data = {
       price: 86.99,
     },
     {
+      id: 'uejgwfutqwebruyflbwoiryf126159',
       sku: 'DA0019-713',
       brand: 'Nike',
       name: 'Nike Sportswear',
+      slug: 'nike-sportswear',
       collection: ['Pants'],
-      image: [
+      images: [
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/f171dabc-ae22-4b77-9f33-6758bf5d2ba3/sportswear-mens-classic-fleece-pants-DgDCHh.png',
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/ebed13ac-1b16-455e-aed1-9b2805a8f5d6/sportswear-mens-classic-fleece-pants-DgDCHh.png',
         'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/895be077-9874-491c-b693-05020246e20a/sportswear-mens-classic-fleece-pants-DgDCHh.png',

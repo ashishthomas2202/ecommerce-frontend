@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import style from './Header.module.scss';
-import { Brand } from '../../utils/settings';
+import { Brand } from '../../../utils/settings';
 export default function Header() {
   /****************** Brand ******************/
   const brand = <div className={style.brand}>{Brand.name}</div>;

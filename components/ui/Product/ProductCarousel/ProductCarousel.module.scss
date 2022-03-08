@@ -1,0 +1,30 @@
+.productCarousel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .mainImage {
+    height: 90vh;
+    width: 100%;
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+  }
+
+  .additionalImagesWrapper {
+    width: 100%;
+    display: flex;
+    padding-top: 0.7rem;
+    column-gap: 0.7rem;
+    row-gap: 0.7rem;
+    flex-wrap: wrap;
+
+    .additionalImage {
+      height: 130px;
+      width: 15%;
+      background-size: cover;
+      background-position: top;
+      background-repeat: no-repeat;
+    }
+  }
+}

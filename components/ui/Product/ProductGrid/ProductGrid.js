@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './ProductGrid.module.scss';
 import Product from '../Product/Product';
-import { data } from '../../../utils/data';
+import { data } from '../../../../utils/data';
 
 export default function ProductGrid(title) {
   const products = data.products;
