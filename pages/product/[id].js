@@ -1,8 +1,6 @@
 import React from 'react';
-import style from './ProductDetail.module.scss';
 import { useRouter } from 'next/router';
 import { data } from '../../utils/data';
-import ProductDetailSection from '../../components/ui/Product/ProductDetailSection/ProductDetailSection';
 import ProductDetailView from '../../components/ui/Product/ProductDetailView/ProductDetailView';
 
 export default function ProductDetails() {

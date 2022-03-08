@@ -22,7 +22,10 @@ export default function ProductCarousel({ product }) {
             <div
               key={image}
               className={style.additionalImage}
-              style={{ backgroundImage: `url(${image})` }}
+              style={{
+                backgroundImage: `url(${image})`,
+                border: i === currentIndex ? `2px solid #6d6d6d` : '',
+              }}
               onClick={() => {
                 handleClick(i);
               }}

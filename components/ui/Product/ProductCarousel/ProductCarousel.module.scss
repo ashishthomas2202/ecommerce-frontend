@@ -9,22 +9,21 @@
     background-size: cover;
     background-position: top;
     background-repeat: no-repeat;
+    transition: 0.5s ease;
   }
 
   .additionalImagesWrapper {
-    width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.7rem;
     padding-top: 0.7rem;
-    column-gap: 0.7rem;
-    row-gap: 0.7rem;
-    flex-wrap: wrap;
 
     .additionalImage {
       height: 130px;
-      width: 15%;
       background-size: cover;
       background-position: top;
       background-repeat: no-repeat;
+      transition: 0.5s ease;
     }
   }
 }
