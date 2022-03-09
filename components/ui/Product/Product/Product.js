@@ -4,15 +4,15 @@ import style from './Product.module.scss';
 
 export default function Product({ data }) {
   return (
-    <Link href={`product/${data.id}`} passHref>
+    <Link href={`/product/${data.slug}`} passHref>
       <div className={style.product}>
         <div
           className={style.image}
-          style={{ backgroundImage: `url(${data.images[0]})` }}
+          style={{ backgroundImage: `url(${data.images[0].path})` }}
         ></div>
         <ul className={style.info}>
           <li className={style.name}>{data.name}</li>
-          <li className={style.price}>${data.price}</li>
+          <li className={style.price}>${data.stickerPrice}</li>
           <li>
             <button className={style.addToCart}>Add to cart</button>
           </li>

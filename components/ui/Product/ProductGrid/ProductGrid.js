@@ -4,10 +4,8 @@ import Product from '../Product/Product';
 import { data as dat } from '../../../../utils/data';
 
 export default function ProductGrid({ title, data }) {
-  console.log(data[0].collections);
-  const products = dat.products;
-
-  // const pageTitle = ;
+  // console.log(data);
+  const products = data.products;
 
   const productGrid = (
     <div className={style.productGrid}>

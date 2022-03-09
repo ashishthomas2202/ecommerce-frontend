@@ -6,14 +6,17 @@ import db from '../../utils/db';
 export default function Shop({ products }) {
   return (
     <div>
-      <ProductGrid title="Shop" data={products} />
+      <ProductGrid title="Shop" data={{ products }} />
     </div>
   );
 }
 
 export async function getServerSideProps() {
   await db.connect();
-  const products = await Product.find({}).populate('collections').lean();
+  const products = await Product.find({})
+    .populate('collections')
+    .lean({ virtuals: true });
+  console.log(products);
   await db.disconnect();
   return {
     props: {

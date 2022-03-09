@@ -5,7 +5,7 @@ const connection = {};
 async function connect() {
   // Check if the db is already connected or not
   if (connection.isConnected) {
-    console.log('\nAlready connected');
+    console.log('Already connected');
     return;
   }
 
@@ -15,7 +15,7 @@ async function connect() {
 
     // previous connection is open and ready
     if (connection.isConnected === 1) {
-      console.log('\nUse previous connection');
+      console.log('Use previous connection');
       return;
     }
 
@@ -26,7 +26,7 @@ async function connect() {
   //not connected - connecting first time
   const db = await mongoose.connect(process.env.MONGODB_URI);
 
-  console.log('\nNew connection');
+  console.log('New connection');
   connection.isConnected = db.connections[0].readyState;
 }
 
@@ -36,7 +36,7 @@ async function disconnect() {
       await mongoose.disconnect();
       connection.isConnected = false;
     } else {
-      console.log('\nNot disconnected');
+      console.log('Not disconnected');
     }
   }
 }
@@ -45,8 +45,7 @@ function convertDocToObj(doc) {
   doc._id = doc._id.toString();
   doc.createdAt = doc.createdAt.toString();
   doc.updatedAt = doc.updatedAt.toString();
-  
-  
+
   const collections = doc.collections.map((collection) => {
     collection._id = collection._id.toString();
     collection.createdAt = collection.createdAt.toString();

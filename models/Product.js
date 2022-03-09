@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
 import Collection from './Collection';
-import { Brand } from '../utils/settings';
 import uniqueValidator from 'mongoose-unique-validator';
+import mongooseLeanVirtuals from 'mongoose-lean-virtuals';
 import _ from 'lodash';
+import { Brand } from '../utils/settings';
 
 // let objectId = mongoose.Types.ObjectId();
 
@@ -177,14 +178,23 @@ const productSchema = new mongoose.Schema(
       },
     ],
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toObject: {
+      virtuals: true,
+    },
+    toJSON: {
+      virtuals: true,
+    },
+  }
 );
 
 productSchema.virtual('slug').get(function () {
-  return _.kebabCase(this.name);
+  return `${_.kebabCase(this.name)}-${this._id}`;
 });
 
 productSchema.plugin(uniqueValidator);
+productSchema.plugin(mongooseLeanVirtuals);
 
 const Product =
   mongoose.models.Product || mongoose.model('Product', productSchema);
