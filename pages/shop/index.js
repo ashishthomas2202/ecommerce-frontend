@@ -16,7 +16,6 @@ export async function getServerSideProps() {
   const products = await Product.find({})
     .populate('collections')
     .lean({ virtuals: true });
-  console.log(products);
   await db.disconnect();
   return {
     props: {

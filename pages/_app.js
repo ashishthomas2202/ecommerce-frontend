@@ -1,11 +1,14 @@
 import '../styles/globals.scss';
 import Layout from '../components/main/Layout/Layout';
+import { StoreProvider } from '../utils/store';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <StoreProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </StoreProvider>
   );
 }
 

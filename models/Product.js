@@ -5,8 +5,6 @@ import mongooseLeanVirtuals from 'mongoose-lean-virtuals';
 import _ from 'lodash';
 import { Brand } from '../utils/settings';
 
-// let objectId = mongoose.Types.ObjectId();
-
 const productSchema = new mongoose.Schema(
   {
     sku: {
@@ -19,6 +17,10 @@ const productSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
+    },
+    slug: {
+      type: String,
+      trim: true,
     },
     brand: {
       type: String,
@@ -189,8 +191,8 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-productSchema.virtual('slug').get(function () {
-  return `${_.kebabCase(this.name)}-${this._id}`;
+productSchema.pre('validate', function () {
+  this.slug = `${_.kebabCase(this.name)}-${_.kebabCase(this.sku)}`;
 });
 
 productSchema.plugin(uniqueValidator);

@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Link from 'next/link';
 import style from './Header.module.scss';
 import { Brand } from '../../../utils/settings';
+import { Store } from '../../../utils/store';
 export default function Header() {
+  const { state } = useContext(Store);
+  const { shoppingBag } = state;
+
   /****************** Brand ******************/
   const brand = <div className={style.brand}>{Brand.name}</div>;
 
@@ -29,9 +33,25 @@ export default function Header() {
   );
 
   /****************** Action ******************/
+
+  const [bagItemsCount, setBagItemsCount] = useState(0);
+
+  // To initialize the shopping bag for the first time
+  useEffect(() => {
+    shoppingBag.initialize();
+  }, []);
+
+  // To update the number of items in shopping bag
+  useEffect(() => {
+    setBagItemsCount(shoppingBag.totalItems);
+  }, [shoppingBag]);
+
   const actionItems = [
     { name: 'Favorite', link: '/favorite' },
-    { name: 'Shopping Bag', link: '/shoppingBag' },
+    {
+      name: `Shopping Bag(${bagItemsCount})`,
+      link: '/shoppingBag',
+    },
   ];
 
   const actions = (

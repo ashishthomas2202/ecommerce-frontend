@@ -1,9 +1,60 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import style from './ProductContent.module.scss';
-
-import ProductDetailSection from '../ProductDetailSection/ProductDetailSection';
+import { Store } from '../../../../utils/store';
+import axios from 'axios';
+// import ProductDetailSection from '../ProductDetailSection/ProductDetailSection';
 export default function ProductContent({ product }) {
-  return <div className={style.productContent}>Des</div>;
+  const { dispatch } = useContext(Store);
+
+  async function handleAddToBag() {
+    // const { data } = await axios.get(`/api/products/${product._id}`);
+    // console.log(data);
+    // console.log({ product });
+    dispatch({
+      type: 'BAG_ADD_ITEM',
+      payload: {
+        _id: product._id,
+        quantity: 1,
+      },
+    });
+
+    // dispatch({ type: 'BAG_ADD_ITEM', payload: { ...product, quantity: 1 } });
+  }
+  return (
+    <div className={style.productContent}>
+      {product.name}
+      <br />
+      <br />
+      SKU: {product.sku}
+      <br />
+      <br />
+      Brand: {product.brand}
+      <br />
+      <br />
+      {product.ribbon}
+      <br />
+      <br />
+      Collections:{' '}
+      {product.collections.map((collection) => `${collection.name},`)}
+      <br />
+      <br />
+      Sold: {product.sold}
+      <br />
+      <br />
+      Price: {product.stickerPrice}
+      <br />
+      <br />
+      Quantity: {product.quantity}
+      <br />
+      <br />
+      <button onClick={handleAddToBag}>Add to bag</button>
+      <br />
+      <br />
+      description: {product.description}
+      <br />
+      <br />
+    </div>
+  );
 }
 
 {

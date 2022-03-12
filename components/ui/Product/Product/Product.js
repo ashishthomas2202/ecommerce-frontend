@@ -14,7 +14,7 @@ export default function Product({ data }) {
           <li className={style.name}>{data.name}</li>
           <li className={style.price}>${data.stickerPrice}</li>
           <li>
-            <button className={style.addToCart}>Add to cart</button>
+            <button className={style.addToBag}>Add to bag</button>
           </li>
         </ul>
       </div>
