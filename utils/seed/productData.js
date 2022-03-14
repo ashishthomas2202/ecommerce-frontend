@@ -63,7 +63,6 @@ export const data = {
         { size: 'large', quantity: 7 },
       ],
     },
-
     {
       sku: '718833-451',
       name: 'Nike Dri-FIT Legend',
@@ -99,6 +98,195 @@ export const data = {
         { size: 'small', quantity: 0 },
         { size: 'medium', quantity: 2 },
         { size: 'large', quantity: 1 },
+      ],
+    },
+    {
+      sku: 'DB3193-403',
+      name: 'Nike Sportswear Premium Essential',
+      brand: 'Nike',
+      ribbon: 'New Arrival',
+      collections: ['622783ba8b7f094ee4bb65d1', '622783ba8b7f094ee4bb65d5'],
+      images: [
+        {
+          name: 'Nike-Dri-FIT-Legend-1',
+          extension: 'png',
+          path: 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/4efd475f-6656-4b0d-b88f-41a40478c212/sportswear-premium-essential-mens-t-shirt-SS1mBB.png',
+        },
+        {
+          name: 'Nike-Dri-FIT-Legend-2',
+          extension: 'png',
+          path: 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/f4323f76-ccc9-4144-b8d7-51a0fd8bfa5f/sportswear-premium-essential-mens-t-shirt-SS1mBB.png',
+        },
+        {
+          name: 'Nike-Dri-FIT-Legend-3',
+          extension: 'png',
+          path: 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/b501f8ba-8cf6-481c-a292-d09c30322629/sportswear-premium-essential-mens-t-shirt-SS1mBB.png',
+        },
+      ],
+      sold: 2,
+      costPrice: 15.99,
+      stickerPrice: 22.97,
+      description:
+        'The Nike Sportswear Premium Essential T-shirt is made with a heavyweight cotton jersey and features our roomy Max 90 fit. An embroidered chest graphic and woven flag label elevate the details.',
+      quantity: 5,
+
+      color: ['blue', 'red'],
+      sizes: [
+        { size: 'small', quantity: 8 },
+        { size: 'medium', quantity: 0 },
+        { size: 'large', quantity: 1 },
+      ],
+    },
+    {
+      sku: 'DM6480-072',
+      name: 'Nike Sportswear Tech Fleece',
+      brand: 'Nike',
+      ribbon: 'New Arrival',
+      collections: ['622783ba8b7f094ee4bb65d1', '622783ba8b7f094ee4bb65d5'],
+      images: [
+        {
+          name: 'Nike-Dri-FIT-Legend-1',
+          extension: 'png',
+          path: 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/0bf36b46-c4c1-4513-b02a-b27d2bd8d135/sportswear-tech-fleece-mens-joggers-FHsM9X.png',
+        },
+        {
+          name: 'Nike-Dri-FIT-Legend-2',
+          extension: 'png',
+          path: 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/6fa7410b-ab4d-4264-a1bf-c08db66ac6f7/sportswear-tech-fleece-mens-joggers-FHsM9X.png',
+        },
+        {
+          name: 'Nike-Dri-FIT-Legend-3',
+          extension: 'png',
+          path: 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/9fabdfce-d67e-4435-972e-454d23a19b23/sportswear-tech-fleece-mens-joggers-FHsM9X.png',
+        },
+      ],
+      sold: 3,
+      costPrice: 20.99,
+      stickerPrice: 30.0,
+      description:
+        'A standard length pant with a slim, tapered design, the Nike Sportswear Tech Fleece Joggers are big on warmth, not bulk. Printed graphics and asymmetrical color-blocking provide an updated look.',
+      quantity: 6,
+
+      color: ['white', 'blue', 'red'],
+      sizes: [
+        { size: 'small', quantity: 8 },
+        { size: 'medium', quantity: 0 },
+        { size: 'large', quantity: 1 },
+        { size: 'extra large', quantity: 1 },
+      ],
+    },
+    {
+      sku: 'DV5302-010',
+      name: 'Nike Sportswear Club',
+      brand: 'Nike',
+      ribbon: 'New Arrival',
+      collections: ['622783ba8b7f094ee4bb65d1', '622783ba8b7f094ee4bb65d5'],
+      images: [
+        {
+          name: 'Nike-Dri-FIT-Legend-1',
+          extension: 'png',
+          path: 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/b520df7a-e385-45c7-bb8f-397514f4854d/sportswear-club-french-terry-sweatshirt-k8mtTJ.png',
+        },
+        {
+          name: 'Nike-Dri-FIT-Legend-2',
+          extension: 'png',
+          path: 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/33240bbb-74a8-48d5-8fab-bdfdde428e72/sportswear-club-french-terry-sweatshirt-k8mtTJ.png',
+        },
+        {
+          name: 'Nike-Dri-FIT-Legend-3',
+          extension: 'png',
+          path: 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/d654e427-fef1-4ffc-bb28-be35b89a45dc/sportswear-club-french-terry-sweatshirt-k8mtTJ.png',
+        },
+      ],
+      sold: 4,
+      costPrice: 22.99,
+      stickerPrice: 31.0,
+      description:
+        'A standard length pant with a slim, tapered design, the Nike Sportswear Tech Fleece Joggers are big on warmth, not bulk. Printed graphics and asymmetrical color-blocking provide an updated look.',
+      quantity: 10,
+
+      color: ['white', 'blue', 'red'],
+      sizes: [
+        { size: 'small', quantity: 10 },
+        { size: 'medium', quantity: 3 },
+        { size: 'large', quantity: 6 },
+        { size: 'extra large', quantity: 2 },
+      ],
+    },
+    {
+      sku: 'CU6231-367',
+      name: 'Nike Therma',
+      brand: 'Nike',
+      ribbon: 'New Arrival',
+      collections: ['622783ba8b7f094ee4bb65d1', '622783ba8b7f094ee4bb65d5'],
+      images: [
+        {
+          name: 'Nike-Dri-FIT-Legend-1',
+          extension: 'png',
+          path: 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/8f0fe901-69cc-4829-a117-5743b35c9b05/therma-mens-full-zip-training-hoodie-DwfKtF.png',
+        },
+        {
+          name: 'Nike-Dri-FIT-Legend-2',
+          extension: 'png',
+          path: 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/86766023-4829-4fa5-834e-2f01da27d4a7/therma-mens-full-zip-training-hoodie-DwfKtF.png',
+        },
+        {
+          name: 'Nike-Dri-FIT-Legend-3',
+          extension: 'png',
+          path: 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/61088f12-391a-4304-b68c-e82ee13b7ed1/therma-mens-full-zip-training-hoodie-DwfKtF.png',
+        },
+      ],
+      sold: 5,
+      costPrice: 23.99,
+      stickerPrice: 32.0,
+      description:
+        'A standard length pant with a slim, tapered design, the Nike Sportswear Tech Fleece Joggers are big on warmth, not bulk. Printed graphics and asymmetrical color-blocking provide an updated look.',
+      quantity: 10,
+
+      color: ['pink', 'blue', 'red'],
+      sizes: [
+        { size: 'small', quantity: 10 },
+        { size: 'medium', quantity: 3 },
+        { size: 'large', quantity: 6 },
+        { size: 'extra large', quantity: 2 },
+      ],
+    },
+    {
+      sku: 'DQ3476-392',
+      name: 'Nike Resort',
+      brand: 'Nike',
+      ribbon: 'New Arrival',
+      collections: ['622783ba8b7f094ee4bb65d1', '622783ba8b7f094ee4bb65d5'],
+      images: [
+        {
+          name: 'Nike Resort',
+          extension: 'png',
+          path: 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/ed52e9df-ae00-4fdd-a6c7-ecd966a60894/resort-mens-top-5vZqVp.png',
+        },
+        {
+          name: 'Nike-Dri-FIT-Legend-2',
+          extension: 'png',
+          path: 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/c16bb245-7625-4f0b-89fb-ebf6172cdd24/resort-mens-top-5vZqVp.png',
+        },
+        {
+          name: 'Nike-Dri-FIT-Legend-3',
+          extension: 'png',
+          path: 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/8676646d-10de-4c11-b838-31e8679e1dd5/resort-mens-top-5vZqVp.png',
+        },
+      ],
+      sold: 7,
+      costPrice: 27.99,
+      stickerPrice: 40.0,
+      description:
+        'A standard length pant with a slim, tapered design, the Nike Sportswear Tech Fleece Joggers are big on warmth, not bulk. Printed graphics and asymmetrical color-blocking provide an updated look.',
+      quantity: 7,
+
+      color: ['white', 'blue', 'black'],
+      sizes: [
+        { size: 'small', quantity: 3 },
+        { size: 'medium', quantity: 4 },
+        { size: 'large', quantity: 5 },
+        { size: 'extra large', quantity: 1 },
       ],
     },
   ],

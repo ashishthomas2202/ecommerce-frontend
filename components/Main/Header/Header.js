@@ -44,7 +44,7 @@ export default function Header() {
   // To update the number of items in shopping bag
   useEffect(() => {
     setBagItemsCount(shoppingBag.totalItems);
-  }, [shoppingBag]);
+  }, [shoppingBag.totalItems]);
 
   const actionItems = [
     { name: 'Favorite', link: '/favorite' },

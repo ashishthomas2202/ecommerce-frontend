@@ -1,5 +1,5 @@
 import { createContext, useReducer } from 'react';
-import { Cookies } from './cookie';
+import LocalStorage from './localStorage';
 
 export const Store = createContext();
 
@@ -7,9 +7,8 @@ const initialState = {
   darkMode: false,
   shoppingBag: {
     initialize: function () {
-      this.bagItems = Cookies.check('bagItems')
-        ? JSON.parse(Cookies.get('bagItems'))
-        : [];
+      let bagItems = LocalStorage.getItem('bagItems');
+      this.bagItems = bagItems ? JSON.parse(bagItems) : [];
 
       this.bagItems.forEach((item) => {
         this.totalItems += item.quantity;
@@ -47,8 +46,8 @@ function reducer(state, action) {
         totalItems += item.quantity;
       });
 
-      console.log(bagItems);
-      Cookies.set('bagItems', JSON.stringify(bagItems));
+      LocalStorage.setItem('bagItems', JSON.stringify(bagItems));
+
       return {
         ...state,
         shoppingBag: { ...state.shoppingBag, bagItems, totalItems },
