@@ -51,16 +51,17 @@ export const data = {
       sold: 15,
       onePrice: true,
       costPrice: 20.99,
+      sellingPrice: 22.99,
       stickerPrice: 25.99,
       description:
         "The Nike Dri-FIT T-Shirt is made with soft, lightweight fabric for a smooth and comfortable feel. It's powered by our sweat-wicking technology to help keep you dry when you're pushing the intensity of your workout.",
-      quantity: 11,
+      stock: 11,
 
       color: ['white', 'blue', 'green'],
       sizes: [
-        { size: 'small', quantity: 5 },
-        { size: 'medium', quantity: 4 },
-        { size: 'large', quantity: 7 },
+        { size: 'small', stock: 5 },
+        { size: 'medium', stock: 4 },
+        { size: 'large', stock: 7 },
       ],
     },
     {
@@ -88,16 +89,17 @@ export const data = {
       ],
       sold: 1,
       costPrice: 15.99,
+      sellingPrice: 22.97,
       stickerPrice: 22.97,
       description:
         'The Nike Dri-FIT Legend T-Shirt is an essential layer with an odor-resistant finish that helps keep you fresh through workouts at any level. Lightweight fabric breathes and wicks sweat so you stay cool and dry from warmups well into the afterburn.',
-      quantity: 3,
+      stock: 3,
 
       color: ['blue', 'red'],
       sizes: [
-        { size: 'small', quantity: 0 },
-        { size: 'medium', quantity: 2 },
-        { size: 'large', quantity: 1 },
+        { size: 'small', stock: 0 },
+        { size: 'medium', stock: 2 },
+        { size: 'large', stock: 1 },
       ],
     },
     {
@@ -125,16 +127,17 @@ export const data = {
       ],
       sold: 2,
       costPrice: 15.99,
+      sellingPrice: 21.99,
       stickerPrice: 22.97,
       description:
         'The Nike Sportswear Premium Essential T-shirt is made with a heavyweight cotton jersey and features our roomy Max 90 fit. An embroidered chest graphic and woven flag label elevate the details.',
-      quantity: 5,
+      stock: 5,
 
       color: ['blue', 'red'],
       sizes: [
-        { size: 'small', quantity: 8 },
-        { size: 'medium', quantity: 0 },
-        { size: 'large', quantity: 1 },
+        { size: 'small', stock: 8 },
+        { size: 'medium', stock: 0 },
+        { size: 'large', stock: 1 },
       ],
     },
     {
@@ -162,17 +165,18 @@ export const data = {
       ],
       sold: 3,
       costPrice: 20.99,
+      sellingPrice: 28.99,
       stickerPrice: 30.0,
       description:
         'A standard length pant with a slim, tapered design, the Nike Sportswear Tech Fleece Joggers are big on warmth, not bulk. Printed graphics and asymmetrical color-blocking provide an updated look.',
-      quantity: 6,
+      stock: 6,
 
       color: ['white', 'blue', 'red'],
       sizes: [
-        { size: 'small', quantity: 8 },
-        { size: 'medium', quantity: 0 },
-        { size: 'large', quantity: 1 },
-        { size: 'extra large', quantity: 1 },
+        { size: 'small', stock: 8 },
+        { size: 'medium', stock: 0 },
+        { size: 'large', stock: 1 },
+        { size: 'extra large', stock: 1 },
       ],
     },
     {
@@ -200,17 +204,18 @@ export const data = {
       ],
       sold: 4,
       costPrice: 22.99,
+      sellingPrice: 24.99,
       stickerPrice: 31.0,
       description:
         'A standard length pant with a slim, tapered design, the Nike Sportswear Tech Fleece Joggers are big on warmth, not bulk. Printed graphics and asymmetrical color-blocking provide an updated look.',
-      quantity: 10,
+      stock: 10,
 
       color: ['white', 'blue', 'red'],
       sizes: [
-        { size: 'small', quantity: 10 },
-        { size: 'medium', quantity: 3 },
-        { size: 'large', quantity: 6 },
-        { size: 'extra large', quantity: 2 },
+        { size: 'small', stock: 10 },
+        { size: 'medium', stock: 3 },
+        { size: 'large', stock: 6 },
+        { size: 'extra large', stock: 2 },
       ],
     },
     {
@@ -238,17 +243,18 @@ export const data = {
       ],
       sold: 5,
       costPrice: 23.99,
+      sellingPrice: 29.99,
       stickerPrice: 32.0,
       description:
         'A standard length pant with a slim, tapered design, the Nike Sportswear Tech Fleece Joggers are big on warmth, not bulk. Printed graphics and asymmetrical color-blocking provide an updated look.',
-      quantity: 10,
+      stock: 10,
 
       color: ['pink', 'blue', 'red'],
       sizes: [
-        { size: 'small', quantity: 10 },
-        { size: 'medium', quantity: 3 },
-        { size: 'large', quantity: 6 },
-        { size: 'extra large', quantity: 2 },
+        { size: 'small', stock: 10 },
+        { size: 'medium', stock: 3 },
+        { size: 'large', stock: 6 },
+        { size: 'extra large', stock: 2 },
       ],
     },
     {
@@ -276,17 +282,18 @@ export const data = {
       ],
       sold: 7,
       costPrice: 27.99,
+      sellingPrice: 35.99,
       stickerPrice: 40.0,
       description:
         'A standard length pant with a slim, tapered design, the Nike Sportswear Tech Fleece Joggers are big on warmth, not bulk. Printed graphics and asymmetrical color-blocking provide an updated look.',
-      quantity: 7,
+      stock: 7,
 
       color: ['white', 'blue', 'black'],
       sizes: [
-        { size: 'small', quantity: 3 },
-        { size: 'medium', quantity: 4 },
-        { size: 'large', quantity: 5 },
-        { size: 'extra large', quantity: 1 },
+        { size: 'small', stock: 3 },
+        { size: 'medium', stock: 4 },
+        { size: 'large', stock: 5 },
+        { size: 'extra large', stock: 1 },
       ],
     },
   ],

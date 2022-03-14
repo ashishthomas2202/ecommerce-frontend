@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+// eslint-disable-next-line no-unused-vars
 import Collection from './Collection';
 import uniqueValidator from 'mongoose-unique-validator';
 import mongooseLeanVirtuals from 'mongoose-lean-virtuals';
@@ -71,6 +72,12 @@ const productSchema = new mongoose.Schema(
       min: 0.01,
       max: 99999,
     },
+    sellingPrice: {
+      type: Number,
+      trim: true,
+      min: 0.01,
+      max: 99999,
+    },
     stickerPrice: {
       type: Number,
       trim: true,
@@ -83,7 +90,7 @@ const productSchema = new mongoose.Schema(
       min: 0.01,
       max: 99999,
     },
-    quantity: {
+    stock: {
       type: Number,
       trim: true,
       min: 0,
@@ -155,7 +162,7 @@ const productSchema = new mongoose.Schema(
                   min: 0.01,
                   max: 99999,
                 },
-                quantity: {
+                stock: {
                   type: Number,
                   trim: true,
                   min: 0,

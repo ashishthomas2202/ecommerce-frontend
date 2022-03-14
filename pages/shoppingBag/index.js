@@ -4,6 +4,7 @@ export default function ShoppingBag() {
   return (
     <div>
       <div>ShoppingBag</div>
+      <br />
       <ShoppingBagList />
     </div>
   );
