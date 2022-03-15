@@ -19,6 +19,8 @@ export default function ShoppingBagList() {
     totalItems: 0,
   });
 
+  let Subtotal = 0;
+
   useEffect(() => {
     const {
       shoppingBag: { bagItems, totalItems },
@@ -46,65 +48,77 @@ export default function ShoppingBagList() {
       },
     });
   }
+  function handleCheckout() {
+    router.push('/user/shipping');
+  }
 
   return (
     <div>
       {shoppingBag.totalItems === 0 ? (
         <h1>Bag is empty</h1>
       ) : (
-        <Table>
-          <TableHeading
-            headings={['Image', 'Name', 'Quantity', 'Price', 'Total', 'Action']}
-          />
-          <TableBody>
-            {shoppingBag.bagItems.map((item, i) => (
-              <TableData
-                key={'TableDataEntry' + item._id + item.name}
-                // link={`/product/${item.slug}`}
-                data={[
-                  <Link
-                    key={'TableDataEntryImageLink-shoppingBag' + i}
-                    href={`/product/${item.slug}`}
-                    passHref
-                  >
-                    <img
-                      style={{ cursor: 'pointer' }}
-                      src={item.image.path}
-                      alt={item.name}
-                      height="100"
-                    />
-                  </Link>,
-                  <Link
-                    key={'TableDataEntryProductNameLink-shoppingBag' + i}
-                    href={`/product/${item.slug}`}
-                    passHref
-                  >
-                    <span style={{ cursor: 'pointer' }}>{item.name}</span>
-                  </Link>,
-                  <Select
-                    key={'TableDataEntryProductSelectQuantity-shoppingBag' + i}
-                    name="quantity"
-                    options={item.stock}
-                    selected={item.quantity}
-                    onChangeFunction={(quantity) =>
-                      handleQuantityChange(item, Number(quantity))
-                    }
-                  />,
-                  item.sellingPrice,
-                  Math.floor(item.quantity * item.sellingPrice * 100) / 100,
-                  <button
-                    key={'TableDataEntryRemoveButtob-shoppingBag' + i}
-                    onClick={() => {
-                      handleItemRemoval(item);
-                    }}
-                  >
-                    x
-                  </button>,
-                ]}
-              />
-            ))}
-          </TableBody>
-        </Table>
+        <div>
+          <Table>
+            <TableHeading
+              headings={['Image', 'Name', 'Quantity', 'Price', 'Action']}
+            />
+            <TableBody>
+              {shoppingBag.bagItems.map((item, i) => {
+                Subtotal +=
+                  Math.floor(item.quantity * item.sellingPrice * 100) / 100;
+                return (
+                  <TableData
+                    key={'TableDataEntry' + item._id + item.name}
+                    // link={`/product/${item.slug}`}
+                    data={[
+                      <Link
+                        key={'TableDataEntryImageLink-shoppingBag' + i}
+                        href={`/product/${item.slug}`}
+                        passHref
+                      >
+                        <img
+                          style={{ cursor: 'pointer' }}
+                          src={item.image.path}
+                          alt={item.name}
+                          height="100"
+                        />
+                      </Link>,
+                      <Link
+                        key={'TableDataEntryProductNameLink-shoppingBag' + i}
+                        href={`/product/${item.slug}`}
+                        passHref
+                      >
+                        <span style={{ cursor: 'pointer' }}>{item.name}</span>
+                      </Link>,
+                      <Select
+                        key={
+                          'TableDataEntryProductSelectQuantity-shoppingBag' + i
+                        }
+                        name="quantity"
+                        options={item.stock}
+                        selected={item.quantity}
+                        onChangeFunction={(quantity) =>
+                          handleQuantityChange(item, Number(quantity))
+                        }
+                      />,
+                      item.sellingPrice,
+                      <button
+                        key={'TableDataEntryRemoveButtob-shoppingBag' + i}
+                        onClick={() => {
+                          handleItemRemoval(item);
+                        }}
+                      >
+                        x
+                      </button>,
+                    ]}
+                  />
+                );
+              })}
+            </TableBody>
+          </Table>
+          <div>Subtotal:{Subtotal}</div>
+          <button onClick={handleCheckout}>Checkout</button>
+        </div>
       )}
     </div>
   );
