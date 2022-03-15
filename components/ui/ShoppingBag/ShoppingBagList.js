@@ -8,9 +8,11 @@ import {
 import Link from 'next/link';
 import Select from '../Basic/Select/Select';
 import { Store } from '../../../utils/store';
+import { useRouter } from 'next/router';
 
 export default function ShoppingBagList() {
   const { state, dispatch } = useContext(Store);
+  const router = useRouter();
 
   const [shoppingBag, setShoppingBag] = useState({
     bagItems: [],
@@ -28,21 +30,19 @@ export default function ShoppingBagList() {
     });
   }, [state]);
 
-  // function handleItemRemoval(item) {}
+  function handleItemRemoval(item) {
+    dispatch({
+      type: 'BAG_REMOVE_ITEM',
+      payload: { ...item },
+    });
+    router.push('/shoppingBag');
+  }
   function handleQuantityChange(item, quantity) {
-    console.log(item.name, quantity);
-
     dispatch({
       type: 'BAG_UPDATE_ITEM',
       payload: {
-        _id: item._id,
-        name: item.name,
-        slug: item.slug,
-        image: item.image,
-        sellingPrice: item.sellingPrice,
-        stickerPrice: item.stickerPrice,
-        quantity: quantity,
-        stock: item.stock,
+        ...item,
+        quantity,
       },
     });
   }
@@ -71,7 +71,7 @@ export default function ShoppingBagList() {
                       style={{ cursor: 'pointer' }}
                       src={item.image.path}
                       alt={item.name}
-                      height="50"
+                      height="100"
                     />
                   </Link>,
                   <Link
@@ -94,9 +94,9 @@ export default function ShoppingBagList() {
                   Math.floor(item.quantity * item.sellingPrice * 100) / 100,
                   <button
                     key={'TableDataEntryRemoveButtob-shoppingBag' + i}
-                    // onClick={(item) => {
-                    //   handleItemRemoval(item.id);
-                    // }}
+                    onClick={() => {
+                      handleItemRemoval(item);
+                    }}
                   >
                     x
                   </button>,

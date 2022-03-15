@@ -22,7 +22,6 @@ export default function Select({ name, options, selected, onChangeFunction }) {
         }
         break;
       }
-
       default:
         console.log(name, ': Select: wrong option');
     }
@@ -36,11 +35,7 @@ export default function Select({ name, options, selected, onChangeFunction }) {
     <select ref={selectRef} onChange={(e) => onChangeFunction(e.target.value)}>
       {selectOptions.map((option, i) => {
         return (
-          <option
-            key={name + '-option-' + i}
-            value={option}
-            // selected={option == selected ? true : false}
-          >
+          <option key={name + '-option-' + i} value={option}>
             {option}
           </option>
         );

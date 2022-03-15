@@ -28,7 +28,7 @@ function reducer(state, action) {
     case 'BAG_ADD_ITEM': {
       let itemAdded = false;
       let newItem = action.payload;
-      let bagItems = initialState.shoppingBag.bagItems;
+      let bagItems = state.shoppingBag.bagItems;
       let totalItems = 0;
 
       bagItems.map((item) => {
@@ -56,7 +56,7 @@ function reducer(state, action) {
 
     case 'BAG_UPDATE_ITEM': {
       let updateItem = action.payload;
-      let bagItems = initialState.shoppingBag.bagItems;
+      let bagItems = state.shoppingBag.bagItems;
       let totalItems = 0;
 
       bagItems.map((item) => {
@@ -68,6 +68,34 @@ function reducer(state, action) {
       bagItems.forEach((item) => {
         totalItems += item.quantity;
       });
+
+      LocalStorage.setItem('bagItems', JSON.stringify(bagItems));
+
+      return {
+        ...state,
+        shoppingBag: { ...state.shoppingBag, bagItems, totalItems },
+      };
+    }
+
+    case 'BAG_REMOVE_ITEM': {
+      let removeItem = action.payload;
+      let bagItems = state.shoppingBag.bagItems;
+      let totalItems = 0;
+
+      bagItems = bagItems.filter((item) => item._id !== removeItem._id);
+      // const newBagItems = bagItems.map((item) => {
+      //   console.log(item._id, removeItem);
+      //   if (item._id !== removeItem.id) {
+      //     return item;
+      //   }
+      //   // console.log(item._id, removeItem._id);
+      // });
+
+      bagItems.forEach((item) => {
+        totalItems += item.quantity;
+      });
+
+      console.log('remove', bagItems);
 
       LocalStorage.setItem('bagItems', JSON.stringify(bagItems));
 
