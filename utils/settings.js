@@ -21,6 +21,11 @@ export const User = {
   login: {
     //false = never, "3" = 3 milliseconds ,"3s" = 3 seconds,"3h" = 3 hours,"3d" = 3 days,"3m" = 3 months ...
     expires: false,
+    redirect: '/',
+    link: '/user/login',
+  },
+  shipping: {
+    link: '/user/shipping',
   },
 };
 

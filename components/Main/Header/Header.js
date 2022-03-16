@@ -36,11 +36,6 @@ export default function Header() {
 
   const [bagItemsCount, setBagItemsCount] = useState(0);
 
-  // To initialize the shopping bag for the first time
-  useEffect(() => {
-    shoppingBag.initialize();
-  }, []);
-
   // To update the number of items in shopping bag
   useEffect(() => {
     setBagItemsCount(shoppingBag.totalItems);

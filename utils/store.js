@@ -14,9 +14,24 @@ const initialState = {
         this.totalItems += item.quantity;
       });
     },
-    bagItems: [],
-    totalItems: 0,
+    bagItems: LocalStorage.getItem('bagItems')
+      ? JSON.parse(LocalStorage.getItem('bagItems'))
+      : [],
+    totalItems: LocalStorage.getItem('bagItems')
+      ? () => {
+          let totalItems = 0;
+          let bagItems = JSON.parse(LocalStorage.getItem('bagItems'));
+
+          for (let i = 0; i < bagItems.length; i++) {
+            totalItems += bagItems[i].quantity;
+          }
+          return totalItems;
+        }
+      : 0,
   },
+  userInfo: LocalStorage.getItem('userInfo')
+    ? JSON.parse(LocalStorage.getItem('userInfo'))
+    : null,
 };
 
 function reducer(state, action) {
@@ -25,6 +40,9 @@ function reducer(state, action) {
       return { ...state, darkMode: true };
     case 'DARK_MODE_OFF':
       return { ...state, darkMode: false };
+    case 'USER_LOGIN': {
+      return { ...state, userInfo: action.payload };
+    }
     case 'BAG_ADD_ITEM': {
       let itemAdded = false;
       let newItem = action.payload;

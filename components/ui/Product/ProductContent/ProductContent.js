@@ -49,13 +49,7 @@ export default function ProductContent({ product }) {
         message: `Insufficient Items: ${inStock} Items can be added`,
       });
     }
-    // console.log(
-    //   // data.stock,
-    //   // product.stock,
-    //   // quantitySelected,
-    //   // itemInBag.quantity
-    //   itemInBag
-    // );
+   
   }
 
   return (

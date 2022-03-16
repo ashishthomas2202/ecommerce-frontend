@@ -1,8 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { Store } from '../../utils/store';
+import { User } from '../../utils/settings';
 import axios from 'axios';
+import LocalStorage from '../../utils/localStorage';
 
 export default function Login() {
+  const router = useRouter(); // login?redirect=/shipping
+  const { redirect } = router.query;
+
+  const { state, dispatch } = useContext(Store);
+  const { userInfo } = state;
+
+  if (!redirect && userInfo) {
+    router.push(User.login.redirect);
+  }
+
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
 
@@ -13,13 +27,21 @@ export default function Login() {
         userId,
         password,
       });
-      console.log('data:', data);
-      alert('Successful');
+
+      dispatch({
+        type: 'USER_LOGIN',
+        payload: data,
+      });
+      LocalStorage.setItem('userInfo', JSON.stringify(data));
+      router.push(redirect || User.login.redirect);
     } catch (err) {
       alert(err.response.data ? err.response.data.message : err.message);
       console.log(err.message);
     }
   }
+
+  // console.log('login');
+
   return (
     <div>
       <h1>Login</h1>
