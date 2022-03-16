@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { Store } from '../../utils/store';
 import { User } from '../../utils/settings';
 import axios from 'axios';
-import LocalStorage from '../../utils/localStorage';
 
 export default function Signin() {
   const router = useRouter();
@@ -17,16 +16,25 @@ export default function Signin() {
     router.push(User.signin.redirect);
   }
 
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
 
   async function handleFormSubmit(e) {
     e.preventDefault();
     try {
-      const { data } = await axios.post('/api/user/signin', {
-        userId,
-        password,
-      });
+      let fields = { password };
+
+      if (User.username && User.email) {
+        fields['userId'] = userId;
+      } else if (User.username && !User.email) {
+        fields['username'] = username;
+      } else if (!User.username && User.email) {
+        fields['email'] = email;
+      }
+
+      const { data } = await axios.post('/api/user/signin', fields);
 
       dispatch({
         type: 'USER_SIGNIN',
@@ -44,14 +52,51 @@ export default function Signin() {
       <h1>Sign In</h1>
       <br />
       <form onSubmit={handleFormSubmit}>
-        <label htmlFor="userId">Username or Email: </label>
-        <input
-          id="userId"
-          name="userId"
-          type="text"
-          onChange={(e) => setUserId(e.target.value)}
-        />
-        <br />
+        {User.email && !User.username ? (
+          <span>
+            <label htmlFor="email">Email: </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <br />
+          </span>
+        ) : (
+          ''
+        )}
+
+        {User.username && !User.email ? (
+          <span>
+            <label htmlFor="username">Username: </label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <br />
+          </span>
+        ) : (
+          ''
+        )}
+
+        {User.username && User.email ? (
+          <span>
+            <label htmlFor="userId">Username or Email: </label>
+            <input
+              id="userId"
+              name="userId"
+              type="text"
+              onChange={(e) => setUserId(e.target.value)}
+            />
+            <br />
+          </span>
+        ) : (
+          ''
+        )}
+
         <label htmlFor="password">Password: </label>
         <input
           id="password"
@@ -65,8 +110,15 @@ export default function Signin() {
 
       <p>
         {`Don't have an account?`}
-        <Link href="/user/register" passHref>
-          Register
+        <Link
+          href={
+            redirect
+              ? `${User.signup.link}?redirect=${redirect}`
+              : User.signup.link
+          }
+          passHref
+        >
+          Sign Up
         </Link>
       </p>
     </div>

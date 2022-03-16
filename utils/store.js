@@ -108,13 +108,6 @@ function reducer(state, action) {
       let totalItems = 0;
 
       bagItems = bagItems.filter((item) => item._id !== removeItem._id);
-      // const newBagItems = bagItems.map((item) => {
-      //   console.log(item._id, removeItem);
-      //   if (item._id !== removeItem.id) {
-      //     return item;
-      //   }
-      //   // console.log(item._id, removeItem._id);
-      // });
 
       bagItems.forEach((item) => {
         totalItems += item.quantity;
@@ -130,34 +123,6 @@ function reducer(state, action) {
       };
     }
 
-    // case 'BAG_REMOVE_ITEM': {
-    //   // let itemRemoved = false;
-    //   let itemToRemove = action.payload;
-    //   let bagItems = initialState.shoppingBag.bagItems;
-    //   let totalItems = 0;
-
-    //   bagItems.map((item) => {
-    //     if (item._id === itemToRemove._id) {
-    //       item.quantity -= newItem.quantity;
-    //       itemAdded = true;
-    //     }
-    //   });
-
-    //   if (!itemAdded) {
-    //     bagItems.push(newItem);
-    //   }
-
-    //   bagItems.forEach((item) => {
-    //     totalItems += item.quantity;
-    //   });
-
-    //   LocalStorage.setItem('bagItems', JSON.stringify(bagItems));
-
-    //   return {
-    //     ...state,
-    //     shoppingBag: { ...state.shoppingBag, bagItems, totalItems },
-    //   };
-    // }
     default:
       return state;
   }

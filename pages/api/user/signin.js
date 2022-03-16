@@ -8,15 +8,14 @@ const handler = nc();
 
 handler.post(async (req, res) => {
   let query = {};
-  if (userSettings.username && userSettings.email) {
+  if (req.body.userId) {
     query['$or'] = [{ username: req.body.userId }, { email: req.body.userId }];
-  } else if (userSettings.username) {
-    query['username'] = req.body.userId;
-  } else if (userSettings.email) {
-    query['email'] = req.body.userId;
+  } else if (req.body.username) {
+    query['username'] = req.body.username;
+  } else if (req.body.email) {
+    query['email'] = req.body.email;
   }
 
-  console.log('received');
   await db.connect();
   const user = await User.findOne({ query });
   await db.disconnect();

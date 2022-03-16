@@ -16,6 +16,7 @@ export const Shop = {
 };
 
 export const User = {
+  // username, email - atleast one has to be true
   username: true,
   email: true,
   signin: {
@@ -25,13 +26,14 @@ export const User = {
     link: '/user/signin',
   },
   signup: {
-    redirect: '/',
+    redirect: '/', // changed to login page - check lines after the User object
     link: '/user/signup',
   },
   shipping: {
     link: '/user/shipping',
   },
 };
+User.signup.redirect = User.signin.link;
 
 export const Pages = {
   main: [
