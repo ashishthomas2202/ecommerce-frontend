@@ -15,6 +15,15 @@ export const Shop = {
   ],
 };
 
+export const User = {
+  username: true,
+  email: true,
+  login: {
+    //false = never, "3" = 3 milliseconds ,"3s" = 3 seconds,"3h" = 3 hours,"3d" = 3 days,"3m" = 3 months ...
+    expires: false,
+  },
+};
+
 export const Social = {
   list: [
     {
