@@ -40,8 +40,15 @@ function reducer(state, action) {
       return { ...state, darkMode: true };
     case 'DARK_MODE_OFF':
       return { ...state, darkMode: false };
-    case 'USER_LOGIN': {
-      return { ...state, userInfo: action.payload };
+    case 'USER_SIGNIN': {
+      let data = action.payload;
+      LocalStorage.setItem('userInfo', JSON.stringify(data));
+      return { ...state, userInfo: data };
+    }
+    case 'USER_SIGNOUT': {
+      console.log('called');
+      LocalStorage.removeItem('userInfo');
+      return { ...state, userInfo: null };
     }
     case 'BAG_ADD_ITEM': {
       let itemAdded = false;

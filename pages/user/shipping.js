@@ -11,7 +11,7 @@ export default function Shipping() {
 
   useEffect(() => {
     if (!userInfo) {
-      router.push(`${User.login.link}?redirect=${User.shipping.link}`);
+      router.push(`${User.signin.link}?redirect=${User.shipping.link}`);
     }
   });
   return <div>shipping</div>;

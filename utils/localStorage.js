@@ -13,6 +13,14 @@ function getItem(key) {
   return null;
 }
 
-const LocalStorage = { setItem, getItem };
+function removeItem(key) {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem(key);
+    return true;
+  }
+  return false;
+}
+
+const LocalStorage = { setItem, getItem, removeItem };
 
 export default LocalStorage;

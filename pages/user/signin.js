@@ -6,15 +6,15 @@ import { User } from '../../utils/settings';
 import axios from 'axios';
 import LocalStorage from '../../utils/localStorage';
 
-export default function Login() {
-  const router = useRouter(); // login?redirect=/shipping
-  const { redirect } = router.query;
+export default function Signin() {
+  const router = useRouter();
+  const { redirect } = router.query; // signin?redirect=/shipping
 
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
 
   if (!redirect && userInfo) {
-    router.push(User.login.redirect);
+    router.push(User.signin.redirect);
   }
 
   const [userId, setUserId] = useState('');
@@ -23,28 +23,25 @@ export default function Login() {
   async function handleFormSubmit(e) {
     e.preventDefault();
     try {
-      const { data } = await axios.post('/api/user/login', {
+      const { data } = await axios.post('/api/user/signin', {
         userId,
         password,
       });
 
       dispatch({
-        type: 'USER_LOGIN',
+        type: 'USER_SIGNIN',
         payload: data,
       });
-      LocalStorage.setItem('userInfo', JSON.stringify(data));
-      router.push(redirect || User.login.redirect);
+      router.push(redirect || User.signin.redirect);
     } catch (err) {
       alert(err.response.data ? err.response.data.message : err.message);
       console.log(err.message);
     }
   }
 
-  // console.log('login');
-
   return (
     <div>
-      <h1>Login</h1>
+      <h1>Sign In</h1>
       <br />
       <form onSubmit={handleFormSubmit}>
         <label htmlFor="userId">Username or Email: </label>
@@ -63,7 +60,7 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />
-        <button>Login</button>
+        <button>Sign In</button>
       </form>
 
       <p>

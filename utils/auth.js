@@ -18,8 +18,8 @@ export function signToken(user) {
 
   let options = {};
 
-  if (userSettings.login.expires) {
-    options['expiresIn'] = userSettings.login.expires;
+  if (userSettings.signin.expires) {
+    options['expiresIn'] = userSettings.signin.expires;
   }
 
   return jwt.sign(payload, process.env.JWT_SECRET, options);

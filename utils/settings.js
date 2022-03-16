@@ -18,15 +18,28 @@ export const Shop = {
 export const User = {
   username: true,
   email: true,
-  login: {
+  signin: {
     //false = never, "3" = 3 milliseconds ,"3s" = 3 seconds,"3h" = 3 hours,"3d" = 3 days,"3m" = 3 months ...
     expires: false,
     redirect: '/',
-    link: '/user/login',
+    link: '/user/signin',
+  },
+  signup: {
+    redirect: '/',
+    link: '/user/signup',
   },
   shipping: {
     link: '/user/shipping',
   },
+};
+
+export const Pages = {
+  main: [
+    { name: 'Home', link: '/' },
+    { name: 'Shop', link: '/shop' },
+    { name: 'About', link: '/about' },
+    { name: 'Contact', link: '/contact' },
+  ],
 };
 
 export const Social = {

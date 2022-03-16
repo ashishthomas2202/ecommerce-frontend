@@ -1,22 +1,21 @@
 import React, { useContext, useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import style from './Header.module.scss';
+import { User as UserSettings, Pages } from '../../../utils/settings';
 import { Brand } from '../../../utils/settings';
 import { Store } from '../../../utils/store';
-export default function Header() {
-  const { state } = useContext(Store);
-  const { shoppingBag } = state;
+import { useRouter } from 'next/router';
+function Header() {
+  const router = useRouter();
+  const { state, dispatch } = useContext(Store);
+  const { shoppingBag, userInfo } = state;
 
   /****************** Brand ******************/
   const brand = <div className={style.brand}>{Brand.name}</div>;
 
   /****************** Menu ******************/
-  const menuItems = [
-    { name: 'Home', link: '/' },
-    { name: 'Shop', link: '/shop' },
-    { name: 'About', link: '/about' },
-    { name: 'Contact', link: '/contact' },
-  ];
+  const menuItems = Pages.main;
 
   const menu = (
     <ul>
@@ -64,12 +63,29 @@ export default function Header() {
   );
 
   /****************** User ******************/
+
+  function handleSignOut() {
+    dispatch({ type: 'USER_SIGNOUT' });
+    router.push('/');
+  }
+
   const userItems = [
-    { name: 'Sign Up', link: '/' },
-    { name: 'Sign In', link: '/' },
+    { name: 'Sign Up', link: UserSettings.signup.link },
+    { name: 'Sign In', link: UserSettings.signin.link },
   ];
 
-  const user = (
+  const user = userInfo ? (
+    <div>
+      <button>{userInfo.firstName}</button>
+      <ul>
+        <li>Profile</li>
+        <li>My Account</li>
+        <li>
+          <button onClick={handleSignOut}>Sign Out</button>
+        </li>
+      </ul>
+    </div>
+  ) : (
     <ul className={style.user}>
       {userItems.map((item, i) => {
         return (
@@ -94,3 +110,5 @@ export default function Header() {
     </div>
   );
 }
+
+export default dynamic(() => Promise.resolve(Header), { ssr: false });
