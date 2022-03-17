@@ -1,0 +1,9 @@
+.Input {
+  padding-bottom: 0.6rem;
+  p {
+    font-size: 0.8rem;
+    &:last-child {
+      color: red;
+    }
+  }
+}
