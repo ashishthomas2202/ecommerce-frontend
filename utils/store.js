@@ -46,7 +46,6 @@ function reducer(state, action) {
       return { ...state, userInfo: data };
     }
     case 'USER_SIGNOUT': {
-      console.log('called');
       LocalStorage.removeItem('userInfo');
       return { ...state, userInfo: null };
     }
@@ -112,8 +111,6 @@ function reducer(state, action) {
       bagItems.forEach((item) => {
         totalItems += item.quantity;
       });
-
-      console.log('remove', bagItems);
 
       LocalStorage.setItem('bagItems', JSON.stringify(bagItems));
 

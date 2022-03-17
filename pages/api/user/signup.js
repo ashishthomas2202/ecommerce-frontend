@@ -9,7 +9,6 @@ const handler = nc();
 handler.post(async (req, res) => {
   let data = req.body;
 
-  console.log('signup', data.password);
   let fields = {
     firstName: data.firstName,
     lastName: data.lastName,

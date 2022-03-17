@@ -64,8 +64,8 @@ export default function ShoppingBagList() {
             />
             <TableBody>
               {shoppingBag.bagItems.map((item, i) => {
-                Subtotal +=
-                  Math.floor(item.quantity * item.sellingPrice * 100) / 100;
+                Subtotal += item.quantity * item.sellingPrice;
+
                 return (
                   <TableData
                     key={'TableDataEntry' + item._id + item.name}
@@ -116,7 +116,9 @@ export default function ShoppingBagList() {
               })}
             </TableBody>
           </Table>
-          <div>Subtotal:{Subtotal}</div>
+          <div>
+            Subtotal:{Number(Math.round(Subtotal * 100) / 100).toFixed(2)}
+          </div>
           <button onClick={handleCheckout}>Checkout</button>
         </div>
       )}

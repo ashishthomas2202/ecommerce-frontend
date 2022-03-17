@@ -1,11 +1,19 @@
 import React, { useState, useContext } from 'react';
 import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import Input from '../../components/ui/Basic/Input/Input';
 import { useRouter } from 'next/router';
 import { Store } from '../../utils/store';
 import { User } from '../../utils/settings';
 import axios from 'axios';
 
 export default function Signin() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   const router = useRouter();
   const { redirect } = router.query; // signin?redirect=/shipping
 
@@ -16,14 +24,9 @@ export default function Signin() {
     router.push(User.signin.redirect);
   }
 
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [userId, setUserId] = useState('');
-  const [password, setPassword] = useState('');
-
-  async function handleFormSubmit(e) {
-    e.preventDefault();
+  const onSubmit = async (formData) => {
     try {
+      let { userId, username, email, password } = formData;
       let fields = { password };
 
       if (User.username && User.email) {
@@ -45,67 +48,56 @@ export default function Signin() {
       alert(err.response.data ? err.response.data.message : err.message);
       console.log(err.message);
     }
-  }
-
+  };
   return (
     <div>
       <h1>Sign In</h1>
       <br />
-      <form onSubmit={handleFormSubmit}>
-        {User.email && !User.username ? (
-          <span>
-            <label htmlFor="email">Email: </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <br />
-          </span>
-        ) : (
-          ''
-        )}
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {User.username && User.email ? (
+          <Input
+            label={'Username or Email'}
+            customName={'userId'}
+            register={register}
+            errors={errors}
+            required
+            minLength={6}
+          />
+        ) : null}
 
         {User.username && !User.email ? (
-          <span>
-            <label htmlFor="username">Username: </label>
-            <input
-              id="username"
-              name="username"
-              type="text"
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <br />
-          </span>
-        ) : (
-          ''
-        )}
+          <Input
+            label={'Username'}
+            register={register}
+            errors={errors}
+            required
+            minLength={6}
+          />
+        ) : null}
 
-        {User.username && User.email ? (
-          <span>
-            <label htmlFor="userId">Username or Email: </label>
-            <input
-              id="userId"
-              name="userId"
-              type="text"
-              onChange={(e) => setUserId(e.target.value)}
-            />
-            <br />
-          </span>
-        ) : (
-          ''
-        )}
+        {!User.username && User.email ? (
+          <Input
+            label={'Email'}
+            register={register}
+            errors={errors}
+            required
+            pattern={
+              /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            }
+          />
+        ) : null}
 
-        <label htmlFor="password">Password: </label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
+        <Input
+          type={'password'}
+          label={'Password'}
+          register={register}
+          errors={errors}
+          required
+          minLength={6}
         />
-        <br />
-        <button>Sign In</button>
+
+        <button type="submit">Sign In</button>
       </form>
 
       <p>

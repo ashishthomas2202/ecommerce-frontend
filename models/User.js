@@ -19,7 +19,7 @@ const userSchema = mongoose.Schema(
     username: {
       type: String,
       trim: true,
-
+      minLength: 6,
       required: userSettings.username,
       unique: true,
     },
@@ -45,7 +45,6 @@ const userSchema = mongoose.Schema(
 userSchema
   .virtual('password')
   .set(function (password) {
-    console.log('passs', password);
     this._password = password;
     this.salt = uuidv4();
     this.hashed_password = this.encryptPassword(password);
@@ -61,8 +60,6 @@ userSchema.virtual('fullname').get(function () {
 userSchema.methods = {
   authenticate: function (plainText) {
     let pass = this.encryptPassword(plainText).toString();
-    console.log(pass, this.hashed_password);
-
     return pass === this.hashed_password;
   },
 
