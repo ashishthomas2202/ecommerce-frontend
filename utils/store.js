@@ -6,27 +6,11 @@ export const Store = createContext();
 const initialState = {
   darkMode: false,
   shoppingBag: {
-    initialize: function () {
-      let bagItems = LocalStorage.getItem('bagItems');
-      this.bagItems = bagItems ? JSON.parse(bagItems) : [];
-
-      this.bagItems.forEach((item) => {
-        this.totalItems += item.quantity;
-      });
-    },
     bagItems: LocalStorage.getItem('bagItems')
       ? JSON.parse(LocalStorage.getItem('bagItems'))
       : [],
-    totalItems: LocalStorage.getItem('bagItems')
-      ? () => {
-          let totalItems = 0;
-          let bagItems = JSON.parse(LocalStorage.getItem('bagItems'));
-
-          for (let i = 0; i < bagItems.length; i++) {
-            totalItems += bagItems[i].quantity;
-          }
-          return totalItems;
-        }
+    totalItems: LocalStorage.getItem('totalItems')
+      ? JSON.parse(LocalStorage.getItem('totalItems'))
       : 0,
   },
   userInfo: LocalStorage.getItem('userInfo')
@@ -72,6 +56,7 @@ function reducer(state, action) {
       });
 
       LocalStorage.setItem('bagItems', JSON.stringify(bagItems));
+      LocalStorage.setItem('totalItems', JSON.stringify(totalItems));
 
       return {
         ...state,
@@ -95,6 +80,7 @@ function reducer(state, action) {
       });
 
       LocalStorage.setItem('bagItems', JSON.stringify(bagItems));
+      LocalStorage.setItem('totalItems', JSON.stringify(totalItems));
 
       return {
         ...state,
@@ -114,6 +100,7 @@ function reducer(state, action) {
       });
 
       LocalStorage.setItem('bagItems', JSON.stringify(bagItems));
+      LocalStorage.setItem('totalItems', JSON.stringify(totalItems));
 
       return {
         ...state,

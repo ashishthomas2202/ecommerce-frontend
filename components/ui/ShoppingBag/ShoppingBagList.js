@@ -54,7 +54,7 @@ export default function ShoppingBagList() {
 
   return (
     <div>
-      {shoppingBag.totalItems === 0 ? (
+      {shoppingBag.totalItems == 0 ? (
         <h1>Bag is empty</h1>
       ) : (
         <div>
