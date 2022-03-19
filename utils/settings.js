@@ -37,6 +37,10 @@ export const User = {
     link: '/user/shipping',
   },
 };
+
+export const Address = {
+  country: { default: 'US' },
+};
 User.signup.redirect = User.signin.link;
 
 export const Pages = {

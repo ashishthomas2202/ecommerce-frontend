@@ -16,6 +16,7 @@ const initialState = {
   userInfo: LocalStorage.getItem('userInfo')
     ? JSON.parse(LocalStorage.getItem('userInfo'))
     : null,
+  addressBook: null,
 };
 
 function reducer(state, action) {

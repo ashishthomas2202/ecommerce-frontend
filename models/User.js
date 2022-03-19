@@ -2,9 +2,14 @@ import mongoose from 'mongoose';
 import crypto from 'crypto-js';
 import { v4 as uuidv4 } from 'uuid';
 import { User as userSettings } from '../utils/settings';
+import Account from './Account';
 import uniqueValidator from 'mongoose-unique-validator';
+<<<<<<< HEAD
 
 export const userSchema = mongoose.Schema(
+=======
+const userSchema = mongoose.Schema(
+>>>>>>> 562ed2b (error commit)
   {
     firstName: {
       type: String,
@@ -34,6 +39,7 @@ export const userSchema = mongoose.Schema(
       required: true,
     },
     salt: String,
+    account: { type: mongoose.ObjectId, ref: 'Account', required: true },
     role: {
       type: Number,
       default: 0,

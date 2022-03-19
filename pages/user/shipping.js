@@ -5,10 +5,8 @@ import { User } from '../../utils/settings';
 import { getSession } from 'next-auth/react';
 
 export default function Shipping() {
-  
   const router = useRouter();
 
- 
   return <div>Shipping</div>;
 }
 

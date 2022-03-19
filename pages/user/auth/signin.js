@@ -65,7 +65,6 @@ export default function Signin() {
             register={register}
             errors={errors}
             required
-            minLength={6}
           />
         ) : null}
 
@@ -75,7 +74,6 @@ export default function Signin() {
             register={register}
             errors={errors}
             required
-            minLength={6}
           />
         ) : null}
 
@@ -98,7 +96,6 @@ export default function Signin() {
           register={register}
           errors={errors}
           required
-          minLength={6}
         />
 
         <button type="submit">Sign In</button>
