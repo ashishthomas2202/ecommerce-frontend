@@ -40,6 +40,7 @@ function reducer(state, action) {
       return { ...state, darkMode: true };
     case 'DARK_MODE_OFF':
       return { ...state, darkMode: false };
+
     case 'USER_SIGNIN': {
       let data = action.payload;
       LocalStorage.setItem('userInfo', JSON.stringify(data));
