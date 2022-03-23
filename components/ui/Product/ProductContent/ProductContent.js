@@ -43,13 +43,12 @@ export default function ProductContent({ product }) {
 
       router.push('/shoppingBag');
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       setError({
         err: true,
         message: `Insufficient Items: ${inStock} Items can be added`,
       });
     }
-   
   }
 
   return (
