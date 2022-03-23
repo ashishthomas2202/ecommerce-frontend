@@ -5,7 +5,7 @@ import { User } from '../settings';
 export const SignUpValidator = function (fields) {
   const { firstName, lastName, username, email } = userSchema.tree;
 
-  //   console.log(username);
+  
   Validator.initialize();
 
   if (fields.firstName)

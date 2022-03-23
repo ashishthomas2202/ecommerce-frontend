@@ -2,7 +2,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import db from '../../../utils/db';
 import User from '../../../models/User';
-import { User as userSettings } from '../../../utils/settings';
+
 export default NextAuth({
   section: {
     jwt: true,
@@ -53,15 +53,6 @@ export default NextAuth({
         }
 
         await db.disconnect();
-
-        // let userData = { firstName: user.firstName, lastName: user.lastName };
-
-        // if (user.email) {
-        //   userData['email'] = user.email;
-        // }
-        // if (user.username) {
-        //   userData['username'] = user.username;
-        // }
         return user;
       },
     }),

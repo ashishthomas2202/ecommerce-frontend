@@ -136,25 +136,5 @@ export const Validator = {
     };
 
     this.errors.push(errorObject);
-    // if (this.result) {
-    //   if (this.result.errors) {
-    //     this.result.errors.push(errorObject);
-    //   } else {
-    //     this.result = { errors: [errorObject] };
-    //   }
-    // }
-  },
-};
-
-export const Errors = {
-  initialize: function () {
-    this.errors = {};
-    return this;
-  },
-  addErrors: function (errors) {
-    if (errors) {
-      errors = [...errors, ...result.errors];
-    }
-    return this;
   },
 };
