@@ -1,11 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import Input from '../../components/ui/Basic/Input/Input';
+import Input from '../../../components/ui/Basic/Input/Input';
 import { useRouter } from 'next/router';
-// import { Store } from '../../utils/store';
-import { User } from '../../utils/settings';
-// import axios from 'axios';
+import { User } from '../../../utils/settings';
+import { signIn, getSession } from 'next-auth/react';
 
 export default function Signin() {
   const {
@@ -17,37 +16,43 @@ export default function Signin() {
   const router = useRouter();
   const { redirect } = router.query; // signin?redirect=/shipping
 
-  //   const { state, dispatch } = useContext(Store);
-  //   const { userInfo } = state;
+  const [isLoading, setIsLoading] = useState(true);
 
-  //   if (!redirect && userInfo) {
-  //     router.push(User.signin.redirect);
-  //   }
-
+  useEffect(() => {
+    getSession().then((session) => {
+      if (session) {
+        router.replace(redirect ? redirect : User.signin.redirect);
+      } else {
+        setIsLoading(false);
+      }
+    });
+  }, [router]);
   const onSubmit = async (formData) => {
-    console.log(formData);
-    // try {
-    //   let { userId, username, email, password } = formData;
-    //   let fields = { password };
-    //   if (User.username && User.email) {
-    //     fields['userId'] = userId;
-    //   } else if (User.username && !User.email) {
-    //     fields['username'] = username;
-    //   } else if (!User.username && User.email) {
-    //     fields['email'] = email;
-    //   }
-    //   const { data } = await axios.post('/api/user/signin', fields);
-    //   dispatch({
-    //     type: 'USER_SIGNIN',
-    //     payload: data,
-    //   });
-    //   router.push(redirect || User.signin.redirect);
-    // } catch (err) {
-    //   alert(err.response.data ? err.response.data.message : err.message);
-    //   console.log(err.message);
-    // }
+    let credentials = { password: formData.password };
+
+    if (formData.userId) {
+      credentials['userId'] = formData.userId;
+    } else if (formData.username) {
+      credentials['username'] = formData.username;
+    } else if (formData.email) {
+      credentials['username'] = formData.email;
+    }
+
+    const result = await signIn('credentials', {
+      redirect: false,
+      ...credentials,
+    });
+
+    if (!result.error) {
+      router.replace(redirect ? redirect : User.signin.redirect);
+    } else {
+      console.log(result);
+    }
+
+    return;
   };
-  return (
+
+  const signInForm = (
     <div>
       <h1>Sign In</h1>
       <br />
@@ -83,6 +88,7 @@ export default function Signin() {
             pattern={
               /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             }
+            s
           />
         ) : null}
 
@@ -113,4 +119,10 @@ export default function Signin() {
       </p>
     </div>
   );
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  } else {
+    return { signInForm };
+  }
 }

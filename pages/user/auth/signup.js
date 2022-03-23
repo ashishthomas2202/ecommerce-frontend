@@ -1,12 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import Input from '../../../components/ui/Basic/Input/Input';
 import { useRouter } from 'next/router';
-// import { Store } from '../../utils/store';
+import { getSession } from 'next-auth/react';
 import { User } from '../../../utils/settings';
-// import axios from 'axios';
-import { Validator } from '../../../utils/validator';
+import axios from 'axios';
 
 export default function SignUp() {
   const {
@@ -19,12 +18,21 @@ export default function SignUp() {
   const router = useRouter();
   const { redirect } = router.query; // signup?redirect=/signin
 
-  //   const { state, dispatch } = useContext(Store);
-  //   const { userInfo } = state;
+  const [isLoading, setIsLoading] = useState(true);
 
-  //   if (userInfo) {
-  //     router.push(User.signup.redirect);
-  //   }
+  useEffect(() => {
+    getSession().then((session) => {
+      if (session) {
+        router.replace(
+          redirect
+            ? `${User.signin.link}?redirect=${redirect}`
+            : User.signup.redirect
+        );
+      } else {
+        setIsLoading(false);
+      }
+    });
+  }, [router]);
 
   const onSubmit = async (formData) => {
     if (formData.password !== formData.confirmPassword) {
@@ -35,59 +43,19 @@ export default function SignUp() {
       return;
     }
 
-    // console.log(formData);
-
-    console.log(
-      Validator.field('password', formData.password)
-        .required()
-        .isString()
-        .minLength(6)
-        .maxLength(10).result
-    );
-
-    console.log(
-      Validator.field('test', formData.test).isNumber().min(5).max(10).result
-    );
-
-    // console.log(Validator.field('Email', formData.email).required().result);
-
-    // try {
-    //   const { firstName, lastName, username, email, password } = formData;
-    //   console.log('username', username);
-    //   console.log('password', password);
-    //   let fields = { firstName, lastName, password };
-    //   if (User.username) {
-    //     fields['username'] = username;
-    //   }
-    //   if (User.email) {
-    //     fields['email'] = email;
-    //   }
-
-    //   const { data } = await axios.post('/api/user/signup', fields);
-
-    //   dispatch({
-    //     type: 'USER_SIGNUP',
-    //     payload: data,
-    //   });
-
-    //   router.push(
-    //     redirect
-    //       ? `${User.signup.redirect}?redirect=${redirect}`
-    //       : User.signup.redirect
-    //   );
-    // } catch (err) {
-    //   alert(
-    //     err.response
-    //       ? err.response.data
-    //         ? err.response.data.message
-    //         : err.response.data
-    //       : err.message
-    //   );
-    //   console.log(err.message);
-    // }
+    const { data } = await axios.post('/api/auth/signup', formData);
+    if (data.errors) {
+      console.log(data.errors);
+    } else {
+      router.replace(
+        redirect
+          ? `${User.signin.link}?redirect=${redirect}`
+          : User.signup.redirect
+      );
+    }
   };
 
-  return (
+  const SignUpForm = (
     <div>
       <h1>Sign Up</h1>
       <br />
@@ -145,8 +113,6 @@ export default function SignUp() {
           required
         />
 
-        <Input label={'test'} register={register} errors={errors} />
-
         <button type="submit">Sign Up</button>
       </form>
       <p>
@@ -157,4 +123,10 @@ export default function SignUp() {
       </p>
     </div>
   );
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  } else {
+    return { SignUpForm };
+  }
 }

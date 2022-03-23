@@ -17,8 +17,12 @@ export const Shop = {
 
 export const User = {
   // username, email - atleast one has to be true
+  // warning *** Never change this after the website is live(fix: drop the users from mongodb database collection and restart the application )
   username: true,
   email: true,
+  password: {
+    minLength: 6,
+  },
   signin: {
     //false = never, "3" = 3 milliseconds ,"3s" = 3 seconds,"3h" = 3 hours,"3d" = 3 days,"3m" = 3 months ...
     expires: false,

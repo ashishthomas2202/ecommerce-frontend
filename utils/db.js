@@ -5,7 +5,7 @@ const connection = {};
 async function connect() {
   // Check if the db is already connected or not
   if (connection.isConnected) {
-    console.log('Already connected');
+    console.log('DB Connected - (Already connected)');
     return;
   }
 
@@ -15,7 +15,7 @@ async function connect() {
 
     // previous connection is open and ready
     if (connection.isConnected === 1) {
-      console.log('Use previous connection');
+      console.log('DB Connected - (Use previous connection)');
       return;
     }
 
@@ -26,18 +26,19 @@ async function connect() {
   //not connected - connecting first time
   const db = await mongoose.connect(process.env.MONGODB_URI);
 
-  console.log('New connection');
+  console.log('DB Connected - (New Connection)');
   connection.isConnected = db.connections[0].readyState;
 }
 
 async function disconnect() {
   if (connection.isConnected) {
-    if (process.env.NODE_ENV === 'production') {
-      await mongoose.disconnect();
-      connection.isConnected = false;
-    } else {
-      console.log('Not disconnected');
-    }
+    // if (process.env.NODE_ENV === 'production') {
+    await mongoose.disconnect();
+    connection.isConnected = false;
+    console.log('DB Disconnected');
+    // } else {
+    //   console.log('Not disconnected');
+    // }
   }
 }
 

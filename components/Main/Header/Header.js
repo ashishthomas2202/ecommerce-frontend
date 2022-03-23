@@ -6,10 +6,16 @@ import { User as UserSettings, Pages } from '../../../utils/settings';
 import { Brand } from '../../../utils/settings';
 import { Store } from '../../../utils/store';
 import { useRouter } from 'next/router';
+import { useSession, signOut } from 'next-auth/react';
+
 function Header() {
+  const { data: session, status } = useSession();
+  // console.log(session);
+  // console.log(status);
+
   const router = useRouter();
-  const { state, dispatch } = useContext(Store);
-  const { shoppingBag, userInfo } = state;
+  const { state } = useContext(Store);
+  const { shoppingBag } = state;
 
   /****************** Brand ******************/
   const brand = <div className={style.brand}>{Brand.name}</div>;
@@ -65,8 +71,7 @@ function Header() {
   /****************** User ******************/
 
   function handleSignOut() {
-    dispatch({ type: 'USER_SIGNOUT' });
-    router.push('/');
+    signOut();
   }
 
   const userItems = [
@@ -74,9 +79,9 @@ function Header() {
     { name: 'Sign In', link: UserSettings.signin.link },
   ];
 
-  const user = userInfo ? (
+  const user = session ? (
     <div>
-      <button>{userInfo.firstName}</button>
+      <button>Hi {session.user.firstName}</button>
       <ul>
         <li>Profile</li>
         <li>My Account</li>

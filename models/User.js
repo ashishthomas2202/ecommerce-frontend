@@ -2,10 +2,9 @@ import mongoose from 'mongoose';
 import crypto from 'crypto-js';
 import { v4 as uuidv4 } from 'uuid';
 import { User as userSettings } from '../utils/settings';
-import Account from './Account';
 import uniqueValidator from 'mongoose-unique-validator';
 
-const userSchema = mongoose.Schema(
+export const userSchema = mongoose.Schema(
   {
     firstName: {
       type: String,
@@ -38,12 +37,6 @@ const userSchema = mongoose.Schema(
     role: {
       type: Number,
       default: 0,
-    },
-    accountId: {
-      type: mongoose.isValidObjectId,
-      ref: 'Account',
-      required: true,
-      unique: true,
     },
   },
   { timestamps: true }
