@@ -26,7 +26,7 @@ export default function Signin() {
         setIsLoading(false);
       }
     });
-  }, [router]);
+  }, []);
   const onSubmit = async (formData) => {
     let credentials = { password: formData.password };
 
@@ -123,6 +123,6 @@ export default function Signin() {
   if (isLoading) {
     return <p>Loading...</p>;
   } else {
-    return { signInForm };
+    return <div>{signInForm}</div>;
   }
 }

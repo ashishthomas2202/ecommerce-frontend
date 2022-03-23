@@ -32,7 +32,7 @@ export default function SignUp() {
         setIsLoading(false);
       }
     });
-  }, [router]);
+  }, []);
 
   const onSubmit = async (formData) => {
     if (formData.password !== formData.confirmPassword) {
@@ -127,6 +127,6 @@ export default function SignUp() {
   if (isLoading) {
     return <p>Loading...</p>;
   } else {
-    return { SignUpForm };
+    return <div>{SignUpForm}</div>;
   }
 }
