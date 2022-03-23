@@ -10,7 +10,7 @@ handler.get(async (req, res) => {
   await Product.deleteMany();
   await Product.insertMany(data.products, (err) => {
     if (err) {
-      res.send({ message: 'Product seeded Unuccessfully', error: err });
+      res.send({ message: 'Product seeded UnSuccessfully', error: err });
     } else {
       res.send({ message: 'Product seeded Successfully' });
     }

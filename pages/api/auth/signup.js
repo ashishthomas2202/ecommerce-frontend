@@ -4,6 +4,7 @@ import User from '../../../models/User';
 import _ from 'lodash';
 
 import { SignUpValidator } from '../../../utils/validation/signUpFormValidator';
+import Account from '../../../models/Account';
 async function handler(req, res) {
   let data = req.body;
 
@@ -27,8 +28,25 @@ async function handler(req, res) {
     return;
   }
 
-  const newUser = new User(result.fields);
+
+  const account = new Account();
+
   await db.connect();
+
+
+  const newAccount = await account.save();
+  // .then((err, account) => {
+  //   if (err) {
+  //     console.log('err:', err);
+  //   } else {
+  //     console.log('account:', account);
+  //   }
+  // });
+  console.log('New Account:', newAccount);
+
+  result.fields['account'] = newAccount._id;
+
+  const newUser = new User(result.fields);
   let response = await newUser
     .save()
     .then((user) => {
@@ -62,6 +80,5 @@ async function handler(req, res) {
     });
 
   await db.disconnect();
-  //   console.log(await User.find({}));
 }
 export default handler;

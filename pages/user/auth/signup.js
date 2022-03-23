@@ -18,12 +18,7 @@ export default function SignUp() {
   const router = useRouter();
   const { redirect } = router.query; // signup?redirect=/signin
 
-<<<<<<< HEAD:pages/user/auth/signup.js
   const [isLoading, setIsLoading] = useState(true);
-=======
-  const { state } = useContext(Store);
-  const { userInfo } = state;
->>>>>>> 562ed2b (error commit):pages/user/signup.js
 
   useEffect(() => {
     getSession().then((session) => {
@@ -48,29 +43,11 @@ export default function SignUp() {
       return;
     }
 
-<<<<<<< HEAD:pages/user/auth/signup.js
     const { data } = await axios.post('/api/auth/signup', formData);
     if (data.errors) {
       console.log(data.errors);
     } else {
       router.replace(
-=======
-    try {
-      const { firstName, lastName, username, email, password } = formData;
-      console.log('username', username);
-      console.log('password', password);
-      let fields = { firstName, lastName, password };
-      if (User.username) {
-        fields['username'] = username;
-      }
-      if (User.email) {
-        fields['email'] = email;
-      }
-
-      await axios.post('/api/user/signup', fields);
-
-      router.push(
->>>>>>> 562ed2b (error commit):pages/user/signup.js
         redirect
           ? `${User.signin.link}?redirect=${redirect}`
           : User.signup.redirect

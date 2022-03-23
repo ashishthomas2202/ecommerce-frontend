@@ -5,9 +5,12 @@ import Address from './Address';
 const accountSchema = mongoose.Schema(
   {
     AddressBook: [
+      // {
+      //   type: mongoose.ObjectId,
+      //   ref: 'Address',
+      // },
       {
-        type: mongoose.ObjectId,
-        ref: 'Address',
+        type: String,
       },
     ],
   },
