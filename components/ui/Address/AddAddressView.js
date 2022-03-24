@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import Input from '../Basic/Input/Input';
 import axios from 'axios';
 
-export default function AddressBook() {
+export default function AddAddressView({ isAdded }) {
   const {
     register,
     handleSubmit,
@@ -11,9 +11,13 @@ export default function AddressBook() {
   } = useForm();
 
   const onSubmit = async (fields) => {
-    const data = await axios.post('/api/address/verification', fields);
+    const { data } = await axios.post('/api/address/add', fields);
 
-    console.log(data);
+    if (data.errors) {
+      console.log(data);
+    } else {
+      isAdded(true);
+    }
   };
 
   return (
@@ -21,6 +25,13 @@ export default function AddressBook() {
       <h1>Address Book</h1>
       <br />
       <form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          label={'Fullname'}
+          register={register}
+          errors={errors}
+          required
+        />
+
         <Input
           label={'Address'}
           customName={'street1'}

@@ -67,6 +67,8 @@ export default NextAuth({
       let userData = {
         firstName: user.firstName,
         lastName: user.lastName,
+        account: user.account,
+        user: user._id,
       };
 
       if (user.email) {
@@ -75,7 +77,7 @@ export default NextAuth({
       if (user.username) {
         userData['username'] = user.username;
       }
-      //   session.user = token.user;
+
       session.user = userData;
 
       return session;

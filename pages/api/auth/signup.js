@@ -9,8 +9,8 @@ async function handler(req, res) {
   let data = req.body;
 
   let fields = {
-    firstName: data.firstName ? data.firstName : null,
-    lastName: data.lastName ? data.lastName : null,
+    firstName: data.firstName ? _.capitalize(data.firstName) : null,
+    lastName: data.lastName ? _.capitalize(data.lastName) : null,
     password: data.password ? data.password : null,
   };
 
@@ -28,21 +28,11 @@ async function handler(req, res) {
     return;
   }
 
-
   const account = new Account();
 
   await db.connect();
 
-
   const newAccount = await account.save();
-  // .then((err, account) => {
-  //   if (err) {
-  //     console.log('err:', err);
-  //   } else {
-  //     console.log('account:', account);
-  //   }
-  // });
-  console.log('New Account:', newAccount);
 
   result.fields['account'] = newAccount._id;
 
@@ -61,7 +51,10 @@ async function handler(req, res) {
 
       res.json({ message: 'User Created Successfully', user: data });
     })
-    .catch((err) => {
+    .catch(async (err) => {
+      // Removing account created
+      await newAccount.remove();
+
       if (err.errors) {
         let firstError = Object.values(err.errors)[0];
         let errorObject = {};

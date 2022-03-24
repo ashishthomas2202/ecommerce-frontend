@@ -4,15 +4,24 @@ import Address from './Address';
 
 const accountSchema = mongoose.Schema(
   {
-    AddressBook: [
-      // {
-      //   type: mongoose.ObjectId,
-      //   ref: 'Address',
-      // },
-      {
-        type: String,
+    AddressBook: {
+      book: [
+        {
+          type: mongoose.ObjectId,
+          ref: 'Address',
+        },
+      ],
+      DefaultShippingAddress: {
+        type: mongoose.ObjectId,
+        ref: 'Address',
+        default: null,
       },
-    ],
+      DefaultBillingAddress: {
+        type: mongoose.ObjectId,
+        ref: 'Address',
+        default: null,
+      },
+    },
   },
   { timestamps: true }
 );
