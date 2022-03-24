@@ -1,13 +1,12 @@
 import mongoose from 'mongoose';
-import uniqueValidator from 'mongoose-unique-validator';
 import { Address as AddressSettings } from '../utils/settings';
+
 const addressSchema = mongoose.Schema(
   {
     fullname: {
       type: String,
       trim: true,
       required: true,
-      unique: true,
     },
     street1: {
       type: String,
@@ -43,7 +42,6 @@ const addressSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-addressSchema.plugin(uniqueValidator);
 
 const Address =
   mongoose.models.Address || mongoose.model('Address', addressSchema);

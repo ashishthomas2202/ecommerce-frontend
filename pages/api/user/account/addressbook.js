@@ -1,30 +1,69 @@
 import nc from 'next-connect';
+import db from '../../../../utils/db';
 import User from '../../../../models/User';
 import Account from '../../../../models/Account';
-import db from '../../../utils/db';
+import { getSession } from 'next-auth/react';
+import Address from '../../../../models/Address';
 
 const handler = nc();
 
-handler.post(async (req, res) => {
-  await db.connect();
-  const user = await Account.findOne({
-    _id: req.body.userId,
-    account: req.body.accountId,
-  });
+handler.get(async (req, res) => {
+  const session = await getSession({ req });
+  if (session) {
+    let userId = session.user.user;
+    let accountId = session.user.account;
 
-  const account = null;
-  if (user) {
-    account = await Account.findOne({ _id: req.body.accountId });
-  }
-  await db.disconnect();
+    await db.connect();
+    let user = await User.findOne({ _id: userId, account: accountId });
+    await db.disconnect;
 
-  if (account) {
-    res.send({
-      data: account,
+    if (!user) {
+      res.json({
+        errors: {
+          type: 'notification',
+          message: 'Invalid User Credentials',
+        },
+      });
+      return;
+    }
+
+    await db.connect();
+    let account = await Account.findOne({ _id: accountId }).lean();
+    await db.disconnect();
+
+    if (!account) {
+      res.json({
+        errors: {
+          type: 'notification',
+          message: 'Unable to get account info',
+        },
+      });
+      return;
+    }
+
+    let addressBook = account.addressBook;
+
+    await db.connect();
+    let addresses = await Address.find({ _id: addressBook.book }).lean();
+    await db.disconnect();
+
+    addressBook.book = addresses;
+
+    res.json({
+      addressBook,
     });
+    return;
   } else {
-    res.status(401).send({ message: 'Invalid user or password' });
+    res.json({
+      errors: {
+        type: 'notification',
+        message: 'User not authenticated',
+      },
+    });
+    return;
   }
+
+  return;
 });
 
 export default handler;

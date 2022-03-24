@@ -4,19 +4,19 @@ import Address from './Address';
 
 const accountSchema = mongoose.Schema(
   {
-    AddressBook: {
+    addressBook: {
       book: [
         {
           type: mongoose.ObjectId,
           ref: 'Address',
         },
       ],
-      DefaultShippingAddress: {
+      defaultShippingAddress: {
         type: mongoose.ObjectId,
         ref: 'Address',
         default: null,
       },
-      DefaultBillingAddress: {
+      defaultBillingAddress: {
         type: mongoose.ObjectId,
         ref: 'Address',
         default: null,

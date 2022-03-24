@@ -79,7 +79,7 @@ function Header() {
 
   const user = session ? (
     <div>
-      {console.log(session)}
+      {/* {console.log(session)} */}
       <button>Hi {session.user.firstName}</button>
       <ul>
         <li>Profile</li>
