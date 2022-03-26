@@ -13,10 +13,17 @@ const initialState = {
       ? JSON.parse(LocalStorage.getItem('totalItems'))
       : 0,
   },
-  userInfo: LocalStorage.getItem('userInfo')
-    ? JSON.parse(LocalStorage.getItem('userInfo'))
-    : null,
-  addressBook: null,
+  // userInfo: LocalStorage.getItem('userInfo')
+  //   ? JSON.parse(LocalStorage.getItem('userInfo'))
+  //   : null,
+  addressBook: {
+    shippingAddress: LocalStorage.getItem('shippingAddress')
+      ? LocalStorage.getItem('shippingAddress')
+      : '',
+    billingAddress: LocalStorage.getItem('billingAddress')
+      ? LocalStorage.getItem('billingAddress')
+      : '',
+  },
 };
 
 function reducer(state, action) {
@@ -25,15 +32,21 @@ function reducer(state, action) {
       return { ...state, darkMode: true };
     case 'DARK_MODE_OFF':
       return { ...state, darkMode: false };
-
-    case 'USER_SIGNIN': {
-      let data = action.payload;
-      LocalStorage.setItem('userInfo', JSON.stringify(data));
-      return { ...state, userInfo: data };
+    case 'ADD_SHIPPING_ADDRESS': {
+      let data = action.payload.id;
+      LocalStorage.setItem('shippingAddress', JSON.stringify(data));
+      return {
+        ...state,
+        addressBook: { ...state.addressBook, shippingAddress: data },
+      };
     }
-    case 'USER_SIGNOUT': {
-      LocalStorage.removeItem('userInfo');
-      return { ...state, userInfo: null };
+    case 'ADD_BILLING_ADDRESS': {
+      let data = action.payload.id;
+      LocalStorage.setItem('billingAddress', JSON.stringify(data));
+      return {
+        ...state,
+        addressBook: { ...state.addressBook, billingAddress: data },
+      };
     }
     case 'BAG_ADD_ITEM': {
       let itemAdded = false;
@@ -64,7 +77,6 @@ function reducer(state, action) {
         shoppingBag: { ...state.shoppingBag, bagItems, totalItems },
       };
     }
-
     case 'BAG_UPDATE_ITEM': {
       let updateItem = action.payload;
       let bagItems = state.shoppingBag.bagItems;
@@ -88,7 +100,6 @@ function reducer(state, action) {
         shoppingBag: { ...state.shoppingBag, bagItems, totalItems },
       };
     }
-
     case 'BAG_REMOVE_ITEM': {
       let removeItem = action.payload;
       let bagItems = state.shoppingBag.bagItems;
