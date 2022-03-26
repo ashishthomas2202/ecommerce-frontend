@@ -61,6 +61,22 @@ export const AddressValidator = function (fields) {
     result.fields['country'] = fields.country;
   }
 
+  if (fields.defaultShippingAddress !== null) {
+    Validator.field({
+      fieldName: 'defaultShippingAddress',
+      data: fields.defaultShippingAddress,
+    }).required();
+    result.fields['defaultShippingAddress'] = fields.defaultShippingAddress;
+  }
+
+  if (fields.defaultBillingAddress !== null) {
+    Validator.field({
+      fieldName: 'defaultBillingAddress',
+      data: fields.defaultBillingAddress,
+    }).required();
+    result.fields['defaultBillingAddress'] = fields.defaultBillingAddress;
+  }
+
   if (Validator.errors.length !== 0) {
     result['errors'] = Validator.errors;
   }

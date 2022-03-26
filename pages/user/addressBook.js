@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 import { User as UserSettings } from '../../utils/settings';
 import { getSession } from 'next-auth/react';
-import AddressBook from '../../components/ui/Address/AddressBookView';
+import AddressBookView from '../../components/ui/Address/AddressBookView';
 
-export default function Shipping({ session }) {
-  const [skipStep, setSkipStep] = useState(false);
-  return <AddressBook title={'Shipping Address'} />;
+export default function AddressBookPage({ session }) {
+  return <AddressBookView title={'Address Book'} />;
 }
 
 export async function getServerSideProps(context) {

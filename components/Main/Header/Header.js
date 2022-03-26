@@ -85,6 +85,11 @@ function Header() {
         <li>Profile</li>
         <li>My Account</li>
         <li>
+          <Link href={'/user/addressBook'}>
+            <a>Address Book</a>
+          </Link>
+        </li>
+        <li>
           <button onClick={handleSignOut}>Sign Out</button>
         </li>
       </ul>

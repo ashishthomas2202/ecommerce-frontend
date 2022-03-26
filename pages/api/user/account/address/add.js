@@ -1,10 +1,10 @@
 import nc from 'next-connect';
 import _ from 'lodash';
-import db from '../../../../utils/db';
-import User from '../../../../models/User';
-import Account from '../../../../models/Account';
-import Address from '../../../../models/Address';
-import { AddressValidator } from '../../../../utils/validation/addressValidator';
+import db from '../../../../../utils/db';
+import User from '../../../../../models/User';
+import Account from '../../../../../models/Account';
+import Address from '../../../../../models/Address';
+import { AddressValidator } from '../../../../../utils/validation/addressValidator';
 import { getSession } from 'next-auth/react';
 
 const handler = nc();
@@ -54,7 +54,15 @@ handler.post(async (req, res) => {
       city: data.city ? data.city : null,
       state: data.state ? data.state : null,
       zip: data.zip ? data.zip : null,
-      country: data.country ? data.city : null,
+      country: data.country ? data.country : null,
+      defaultShippingAddress:
+        typeof data.defaultShippingAddress !== 'undefined'
+          ? data.defaultShippingAddress
+          : null,
+      defaultBillingAddress:
+        typeof data.defaultBillingAddress !== 'undefined'
+          ? data.defaultBillingAddress
+          : null,
     };
 
     let result = AddressValidator(fields);
@@ -63,7 +71,7 @@ handler.post(async (req, res) => {
       res.json({
         errors: {
           type: 'fields',
-          message: 'User not authenticated',
+          message: 'Invalid Address',
           errors: result.errors,
         },
       });
@@ -89,6 +97,22 @@ handler.post(async (req, res) => {
     await db.disconnect();
 
     account.addressBook.book.push(address);
+    if (result.fields.defaultShippingAddress) {
+      account.addressBook.defaultShippingAddress = address._id;
+    }
+
+    if (result.fields.defaultBillingAddress) {
+      account.addressBook.defaultBillingAddress = address._id;
+      result.fields.defaultBillingAddress;
+    }
+
+    if (account.addressBook.book.length === 1) {
+      account.addressBook.defaultShippingAddress =
+        account.addressBook.book[0]._id.toString();
+      account.addressBook.defaultBillingAddress =
+        account.addressBook.book[0]._id.toString();
+    }
+
     await db.connect();
     try {
       await account.save();
@@ -108,6 +132,7 @@ handler.post(async (req, res) => {
     res.json({
       message: 'Address Added Successfully',
       address: {
+        _id: address._id,
         fullname: address.fullname,
         street1: address.street1,
         street2: address.street2,
@@ -115,6 +140,8 @@ handler.post(async (req, res) => {
         state: address.state,
         zip: address.zip,
         country: address.country,
+        defaultShippingAddress: result.fields.defaultShippingAddress,
+        defaultBillingAddress: result.fields.defaultBillingAddress,
       },
     });
     return;

@@ -1,9 +1,9 @@
 import nc from 'next-connect';
-import db from '../../../../utils/db';
-import User from '../../../../models/User';
-import Account from '../../../../models/Account';
+import db from '../../../../../utils/db';
+import User from '../../../../../models/User';
+import Account from '../../../../../models/Account';
 import { getSession } from 'next-auth/react';
-import Address from '../../../../models/Address';
+import Address from '../../../../../models/Address';
 
 const handler = nc();
 
