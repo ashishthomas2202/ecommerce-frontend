@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useRef } from 'react';
+// import { useEffect } from 'react/cjs/react.production.min';
 import Button from '../../Basic/Button/Button';
-
+import style from './AddressCard.module.scss';
 export default function AddressCard({
   data,
   deleteHandler,
@@ -8,17 +9,29 @@ export default function AddressCard({
   defaultShippingAddress,
   defaultBillingAddress,
   defaultHandler,
+  selectable = false,
+  selected,
+  handleSelect,
 }) {
   // console.log(data);
   const { _id, fullname, street1, street2, city, state, zip, country } = data;
 
+  const cardRef = useRef();
+
   return (
     <div
+      className={selected ? style.selected : ''}
       style={{
         height: '100%',
         border: '1px solid #000000',
         order: defaultShippingAddress || defaultBillingAddress ? 1 : 2,
       }}
+      ref={cardRef}
+      {...(selectable && {
+        onClick: () => {
+          handleSelect({ id: _id, currentItem: cardRef });
+        },
+      })}
     >
       <h5>{fullname || ''}</h5>
       <p>{street1 || ''}</p>
@@ -27,23 +40,27 @@ export default function AddressCard({
       <p>{state || ''}</p>
       <p>{zip || ''}</p>
       <p>{country || ''}</p>
-      <Button
-        label={'Delete'}
-        onClickHandler={() => {
-          deleteHandler(_id);
-        }}
-      />
-      <Button
-        label={'Edit'}
-        onClickHandler={() => {
-          editClickHandler({
-            ...data,
-            defaultShippingAddress,
-            defaultBillingAddress,
-          });
-        }}
-      />
-      {!defaultShippingAddress && (
+      {!selectable && (
+        <Button
+          label={'Delete'}
+          onClickHandler={() => {
+            deleteHandler(_id);
+          }}
+        />
+      )}
+      {!selectable && (
+        <Button
+          label={'Edit'}
+          onClickHandler={() => {
+            editClickHandler({
+              ...data,
+              defaultShippingAddress,
+              defaultBillingAddress,
+            });
+          }}
+        />
+      )}
+      {!selectable && !defaultShippingAddress && (
         <>
           <br />
           <Button
@@ -54,7 +71,7 @@ export default function AddressCard({
           />
         </>
       )}
-      {!defaultBillingAddress && (
+      {!selectable && !defaultBillingAddress && (
         <>
           <br />
           <Button

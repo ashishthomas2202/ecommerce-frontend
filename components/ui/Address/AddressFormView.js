@@ -121,7 +121,7 @@ export default function AddressFormView({
           </>
         )}
         <button type="Submit">
-          {task == 'add' ? 'Add Address' : 'Edit Address'}
+          {task == 'add' ? 'Add Address' : 'Save Changes'}
         </button>
       </form>
     </div>

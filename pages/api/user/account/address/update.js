@@ -132,39 +132,6 @@ handler.put(async (req, res) => {
     }
     await db.disconnect();
 
-    // account.addressBook.book.push(address);
-    // if (result.fields.defaultShippingAddress) {
-    //   account.addressBook.defaultShippingAddress = address._id;
-    // }
-
-    // if (result.fields.defaultBillingAddress) {
-    //   account.addressBook.defaultBillingAddress = address._id;
-    //   result.fields.defaultBillingAddress;
-    // }
-
-    // if (account.addressBook.book.length === 1) {
-    //   account.addressBook.defaultShippingAddress =
-    //     account.addressBook.book[0]._id.toString();
-    //   account.addressBook.defaultBillingAddress =
-    //     account.addressBook.book[0]._id.toString();
-    // }
-
-    // await db.connect();
-    // try {
-    //   await account.save();
-    // } catch (err) {
-    //   await address.remove();
-    //   await db.disconnect();
-
-    //   res.json({
-    //     errors: {
-    //       type: 'notification',
-    //       message: 'Failed to add address',
-    //     },
-    //   });
-    //   return;
-    // }
-
     res.json({
       message: 'Address Updated Successfully',
       address: {

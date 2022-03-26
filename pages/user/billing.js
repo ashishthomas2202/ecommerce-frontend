@@ -1,10 +1,10 @@
 import React from 'react';
-import { User as UserSettings, Pages } from '../../utils/settings';
+import { User as UserSettings } from '../../utils/settings';
 import { getSession } from 'next-auth/react';
 import AddressBook from '../../components/ui/Address/AddressBookView';
 import { useRouter } from 'next/router';
 
-export default function Shipping({ session }) {
+export default function Billing({ session }) {
   const router = useRouter();
 
   function handleBack() {
@@ -13,15 +13,15 @@ export default function Shipping({ session }) {
   }
 
   function handleNext(id) {
-    console.log('Selected Shipping', id);
-    router.push(UserSettings.billing.link);
+    console.log('Selected Billing', id);
+    router.push(UserSettings.payment.link);
   }
 
   return (
     <AddressBook
-      title={'Shipping Address'}
+      title={'Billing Address'}
       selectable={true}
-      selectionType={'shipping'}
+      selectionType={'billing'}
       next={handleNext}
       back={handleBack}
     />
@@ -33,7 +33,7 @@ export async function getServerSideProps(context) {
   if (!session) {
     return {
       redirect: {
-        destination: `${UserSettings.signin.link}?redirect=${UserSettings.shipping.link}`,
+        destination: `${UserSettings.signin.link}?redirect=${UserSettings.billing.link}`,
       },
     };
   } else {

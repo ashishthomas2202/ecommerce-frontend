@@ -4,13 +4,20 @@ import Button from '../Basic/Button/Button';
 import Grid from '../Basic/Grid/Grid';
 import AddressFormView from './AddressFormView';
 import AddressCard from './AddressCard/AddressCard';
+import style from './style.module.scss';
 
-export default function AddressBook({ title = 'AddressBook' }) {
-  const [updateItemData, setupdateItemData] = useState();
-  // const [addressBookView, setAddressBookView] = useState(true);
-
+export default function AddressBook({
+  title = 'AddressBook',
+  selectable,
+  selectionType,
+  next,
+  back,
+}) {
   // book, add, update, loading
-  const [view, setView] = useState('loading');
+  const [view, setView] = useState({
+    main: selectable ? 'selectable' : 'book',
+    current: 'loading',
+  });
   const [addressBook, setAddressBook] = useState({
     book: [],
     defaultShippingAddress: null,
@@ -27,8 +34,7 @@ export default function AddressBook({ title = 'AddressBook' }) {
           ...addressBook,
           ...data.addressBook,
         });
-        setView('book');
-        // setIsLoading(false);
+        setView({ ...view, current: view.main });
       }
     }
   }
@@ -45,22 +51,12 @@ export default function AddressBook({ title = 'AddressBook' }) {
     }
   }
 
+  const [updateItemData, setupdateItemData] = useState();
+
   function editClickHandler(data) {
-    // console.log(data);
     setupdateItemData(data);
-    setView('update');
+    setView({ ...view, current: 'update' });
   }
-  // async function deleteAddressHandler(id) {
-  //   const { data } = await axios.delete(
-  //     `/api/user/account/address/delete/${id}`
-  //   );
-  //   if (data.errors) {
-  //     console.log(data.errors);
-  //   } else {
-  //     console.log('response:', data);
-  //     getAddressBook();
-  //   }
-  // }
 
   async function setDefaultAddressHandler(fields) {
     const { data } = await axios.put(
@@ -75,76 +71,29 @@ export default function AddressBook({ title = 'AddressBook' }) {
     }
   }
 
+  // const [selection, setSelection] = useState({ id: null, element: null });
+  const [selection, setSelection] = useState(null);
+
+  function handleAddressSelect({ id, currentItem }) {
+    console.log(
+      'clicked',
+      id
+
+      // currentItem.current.classList.add(style.selected)
+    );
+
+    setSelection(id);
+    // selection.element &&
+    //   selection.element.current.classList.remove(style.selected);
+    // currentItem && currentItem.current.classList.add(style.selected);
+    // setSelection({ id, element: currentItem });
+  }
+
   useEffect(async () => {
     await getAddressBook();
   }, []);
 
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // } else {
-  //   let addressBookGrid =
-  //     addressBook.book.length === 0 ? (
-  //       <>
-  //         <h4>No Address Found</h4>
-  //         <Button
-  //           label={'Add Address'}
-  //           onClickHandler={() => {
-  //             setAddressBookView(false);
-  //           }}
-  //         />
-  //       </>
-  //     ) : (
-  //       <>
-  //         <Grid data={addressBook.book} column={3} gap={'1rem'}>
-  //           {addressBook.book.map((address, i) => {
-  //             let defaultShippingAddress =
-  //               address._id === addressBook.defaultShippingAddress;
-  //             let defaultBillingAddress =
-  //               address._id === addressBook.defaultBillingAddress;
-  //             return (
-  //               <AddressCard
-  //                 key={`${address._id}-address-book-grid-${title}-${i}`}
-  //                 data={address}
-  //                 defaultShippingAddress={defaultShippingAddress}
-  //                 defaultBillingAddress={defaultBillingAddress}
-  //                 deleteHandler={deleteAddressHandler}
-  //                 defaultHandler={setDefaultAddressHandler}
-  //               />
-  //             );
-  //           })}
-  //         </Grid>
-  //         <Button
-  //           label={'Add Address'}
-  //           onClickHandler={() => {
-  //             setAddressBookView(false);
-  //           }}
-  //         />
-  //       </>
-  //     );
-
-  //   let view = addressBookView ? (
-  //     <>
-  //       <h2>{title}</h2>
-  //       {addressBookGrid}
-  //     </>
-  //   ) : (
-  //     <AddAddressView
-  //       cancel={() => {
-  //         setAddressBookView(true);
-  //       }}
-  //       added={() => {
-  //         setIsLoading(true);
-  //         setAddressBookView(true);
-  //         getAddressBook();
-  //       }}
-  //       totalAddresses={addressBook.book.length}
-  //     />
-  //   );
-
-  //   // return <>{view}</>;
-  // }
-
-  switch (view) {
+  switch (view.current) {
     case 'book': {
       return (
         <>
@@ -176,9 +125,83 @@ export default function AddressBook({ title = 'AddressBook' }) {
           <Button
             label={'Add Address'}
             onClickHandler={() => {
-              setView('add');
+              setView({ ...view, current: 'add' });
             }}
           />
+        </>
+      );
+      break;
+    }
+    case 'selectable': {
+      return (
+        <>
+          <h2>{title}</h2>
+          {addressBook.book.length === 0 ? (
+            <h4>No Address Found</h4>
+          ) : (
+            <Grid data={addressBook.book} column={3} gap={'1rem'}>
+              {addressBook.book.map((address, i) => {
+                let defaultShippingAddress =
+                  address._id === addressBook.defaultShippingAddress;
+                let defaultBillingAddress =
+                  address._id === addressBook.defaultBillingAddress;
+
+                let selected = selection && selection === address._id;
+
+                if (selection == null) {
+                  selected =
+                    (selectionType == 'shipping' &&
+                      defaultShippingAddress &&
+                      setSelection(address._id)) ||
+                    (selectionType == 'billing' &&
+                      defaultBillingAddress &&
+                      setSelection(address._id));
+                }
+
+                return (
+                  <AddressCard
+                    key={`${address._id}-address-book-grid-${title}-${i}`}
+                    data={address}
+                    deleteHandler={deleteAddressHandler}
+                    editClickHandler={editClickHandler}
+                    defaultShippingAddress={defaultShippingAddress}
+                    defaultBillingAddress={defaultBillingAddress}
+                    defaultHandler={setDefaultAddressHandler}
+                    selectable={true}
+                    selected={selected}
+                    handleSelect={handleAddressSelect}
+                  />
+                );
+              })}
+            </Grid>
+          )}
+
+          {back && (
+            <Button
+              label={'Back'}
+              onClickHandler={() => {
+                back();
+              }}
+            />
+          )}
+
+          {next && (
+            <Button
+              label={'Next'}
+              onClickHandler={() => {
+                if (selection) {
+                  next(selection);
+                } else {
+                  console.log('Not Selected');
+                }
+                // if (selection.id) {
+                //   next(selection.id);
+                // } else {
+                //   console.log('Not Selected');
+                // }
+              }}
+            />
+          )}
         </>
       );
       break;
@@ -187,11 +210,10 @@ export default function AddressBook({ title = 'AddressBook' }) {
       return (
         <AddressFormView
           cancel={() => {
-            setView('book');
+            setView({ ...view, current: view.main });
           }}
           added={() => {
-            // setIsLoading(true);
-            setView('loading');
+            setView({ ...view, current: 'loading' });
             getAddressBook();
           }}
           totalAddresses={addressBook.book.length}
@@ -205,11 +227,11 @@ export default function AddressBook({ title = 'AddressBook' }) {
         <AddressFormView
           task="update"
           cancel={() => {
-            setView('book');
+            setView({ ...view, current: view.main });
           }}
           updateItemData={updateItemData}
           updated={() => {
-            setView('loading');
+            setView({ ...view, current: 'loading' });
             getAddressBook();
           }}
           totalAddresses={addressBook.book.length}

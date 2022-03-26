@@ -36,6 +36,12 @@ export const User = {
   shipping: {
     link: '/user/shipping',
   },
+  billing: {
+    link: '/user/billing',
+  },
+  payment: {
+    link: '/user/payment',
+  },
 };
 
 export const Address = {
@@ -50,6 +56,7 @@ export const Pages = {
     { name: 'About', link: '/about' },
     { name: 'Contact', link: '/contact' },
   ],
+  checkout: { shoppingBag: { link: '/shoppingBag' } },
 };
 
 export const Social = {

@@ -1,0 +1,47 @@
+import React from 'react';
+import { User as UserSettings } from '../../utils/settings';
+import { getSession } from 'next-auth/react';
+// import AddressBook from '../../components/ui/Address/AddressBookView';
+import { useRouter } from 'next/router';
+
+export default function Billing({ session }) {
+  const router = useRouter();
+
+  //   function handleBack() {
+  //     // console.log('Selected Shipping', id);
+  //     router.replace(UserSettings.shipping.link);
+  //   }
+
+  //   function handleNext(id) {
+  //     console.log('Selected Billing', id);
+  //     // router.push(UserSettings.billing.link);
+  //   }
+
+  //   return (
+  //     <AddressBook
+  //       title={'Billing Address'}
+  //       selectable={true}
+  //       next={handleNext}
+  //       back={handleBack}
+  //     />
+  //   );
+
+  return <h1>Payment</h1>;
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession({ req: context.req });
+  if (!session) {
+    return {
+      redirect: {
+        destination: `${UserSettings.signin.link}?redirect=${UserSettings.billing.link}`,
+      },
+    };
+  } else {
+    return {
+      props: {
+        session,
+      },
+    };
+  }
+}
