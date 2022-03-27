@@ -33,14 +33,8 @@ export const User = {
     redirect: '/', // changed to login page - check lines after the User object
     link: '/user/auth/signup',
   },
-  shipping: {
-    link: '/user/shipping',
-  },
-  billing: {
-    link: '/user/billing',
-  },
-  payment: {
-    link: '/user/payment',
+  addressBook: {
+    link: '/user/addressBook',
   },
 };
 
@@ -56,8 +50,29 @@ export const Pages = {
     { name: 'About', link: '/about' },
     { name: 'Contact', link: '/contact' },
   ],
-  checkout: { shoppingBag: { link: '/shoppingBag' } },
+  checkout: {
+    shoppingBag: {
+      link: '/shoppingBag',
+      redirect: '/', // value changed! - check lines after the Pages object
+    },
+    shipping: {
+      link: '/user/shipping',
+      redirect: '/',
+    },
+    billing: {
+      link: '/user/billing',
+      redirect: '/',
+    },
+    payment: {
+      link: '/user/payment',
+      redirect: '/',
+    },
+  },
 };
+
+Pages.checkout.shoppingBag.redirect = Pages.checkout.shipping.link;
+Pages.checkout.shipping.redirect = Pages.checkout.billing.link;
+Pages.checkout.billing.redirect = Pages.checkout.payment.link;
 
 export const Social = {
   list: [

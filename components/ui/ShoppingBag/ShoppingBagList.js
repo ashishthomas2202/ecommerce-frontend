@@ -9,7 +9,7 @@ import Link from 'next/link';
 import Select from '../Basic/Select/Select';
 import { Store } from '../../../utils/store';
 import { useRouter } from 'next/router';
-import { User } from '../../../utils/settings';
+import { User, Pages } from '../../../utils/settings';
 
 export default function ShoppingBagList() {
   const { state, dispatch } = useContext(Store);
@@ -38,7 +38,7 @@ export default function ShoppingBagList() {
       type: 'BAG_REMOVE_ITEM',
       payload: { ...item },
     });
-    router.push('/shoppingBag');
+    // router.push('/shoppingBag');
   }
   function handleQuantityChange(item, quantity) {
     dispatch({
@@ -50,7 +50,7 @@ export default function ShoppingBagList() {
     });
   }
   function handleCheckout() {
-    router.push(User.shipping.link);
+    router.push(Pages.checkout.shoppingBag.redirect);
   }
 
   return (

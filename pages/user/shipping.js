@@ -6,41 +6,39 @@ import { Store } from '../../utils/store';
 import { useRouter } from 'next/router';
 
 export default function Shipping({ session }) {
-  const { state, dispatch } = useContext(Store);
   const router = useRouter();
+
+  // To get/set the shipping address selected by user
+  const { state, dispatch } = useContext(Store);
+
+  // To track the shippingAddress selected by the user
   const [shippingAddressState, setShippingAddressState] = useState(
     state.addressBook.shippingAddress
   );
 
-  // const [shippingAddressId, setShippingAddressId] = useState('');
-
-  // const [reload, setReload] = useState(false);
-
+  // To reinitialize the shipping address stored in the state with the updated store context data
   useEffect(() => {
     const { addressBook } = state;
 
-    console.log('sshipping', addressBook.shippingAddress);
-    // setShippingAddressId(addressBook.shippingAddress);
     setShippingAddressState(addressBook.shippingAddress);
-    // setReload(true);
-    // setReload(false);
   }, [state]);
 
+  // To handle the "back" button click
   function handleBack() {
-    // console.log('Selected Shipping', id);
+    // take the user to previous page
     router.back();
   }
 
+  // to handle the "next" button click
   function handleNext(id) {
-    console.log('dispatch', shippingAddressState);
+    // storing the selected shipping address in the context
     dispatch({
       type: 'ADD_SHIPPING_ADDRESS',
       payload: { id: shippingAddressState },
     });
 
-    // console.log('next:', shippingAddressState);
-    router.push(UserSettings.billing.link);
-    // setShippingAddress(id);
+    // take the user to next page
+    router.push(Pages.checkout.shipping.redirect);
   }
 
   return (
@@ -48,59 +46,31 @@ export default function Shipping({ session }) {
       title={'Shipping Address'}
       selectable={true}
       selectionType={'shipping'}
+      selectionState={{
+        get: () => shippingAddressState,
+        set: (value) => setShippingAddressState(value),
+      }}
       next={handleNext}
       back={handleBack}
-      // selected={shippingAddressId}
-      selectionState={{
-        get: () => {
-          console.log('get', shippingAddressState);
-          return shippingAddressState;
-        },
-        set: (value) => {
-          console.log('set', value);
-          setShippingAddressState(value);
-        },
-      }}
     />
   );
-  // useEffect(() => {
-  //   console.log('state', setShippingAddressState);
-  // }, [shippingAddressState]);
-
-  // return (
-  //   <>
-  //     {!reload ? (
-  //       <AddressBook
-  //         title={'Shipping Address'}
-  //         selectable={true}
-  //         selectionType={'shipping'}
-  //         next={handleNext}
-  //         back={handleBack}
-  //         // selected={shippingAddressId}
-  //         selectionState={{
-  //           get: shippingAddressState,
-  //           set: (value) => {
-  //             console.log('set', value);
-  //             setShippingAddressState(value);
-  //           },
-  //         }}
-  //       />
-  //     ) : (
-  //       <p>Loading</p>
-  //     )}
-  //   </>
-  // );
 }
 
 export async function getServerSideProps(context) {
+  // getting the session if present
   const session = await getSession({ req: context.req });
+
+  // User not authenticated/session not present
   if (!session) {
     return {
+      // redirecting the user to signin page - redirect back once authenticated
       redirect: {
-        destination: `${UserSettings.signin.link}?redirect=${UserSettings.shipping.link}`,
+        destination: `${UserSettings.signin.link}?redirect=${Pages.checkout.shipping.link}`,
       },
     };
-  } else {
+  }
+  // User is authenticated
+  else {
     return {
       props: {
         session,

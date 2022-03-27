@@ -8,32 +8,33 @@ import AddressCard from './AddressCard/AddressCard';
 export default function AddressBook({
   title = 'AddressBook',
   selectable,
-  selected,
   selectionType,
-  // selectionState = { get: null, set: () => {} }
-  selectionState = { get, set },
+  selectionState = { get() {}, set() {}, found: false },
   next,
   back,
 }) {
-  // console.log('addressbook-selected', selected);
-  // const { state, setState } = selected ? selected : {};
-
-  // book, add, update, loading
+  // To store the view of the component - book,selectable, add, update, loading
   const [view, setView] = useState({
     main: selectable ? 'selectable' : 'book',
     current: 'loading',
   });
+
+  // To store the addressBook data
   const [addressBook, setAddressBook] = useState({
     book: [],
     defaultShippingAddress: null,
     defaultBillingAddress: null,
   });
 
+  // function to fetch the addressBook data from the database
   async function getAddressBook() {
     const { data } = await axios.get('/api/user/account/address/addressbook');
+    //Error
     if (data.errors) {
       console.log(data.errors);
-    } else {
+    }
+    //addressBook Found
+    else {
       if (data.addressBook) {
         setAddressBook({
           ...addressBook,
@@ -52,7 +53,6 @@ export default function AddressBook({
     if (data.errors) {
       console.log(data.errors);
     } else {
-      // console.log('response:', data);
       getAddressBook();
     }
   }
@@ -72,53 +72,30 @@ export default function AddressBook({
     if (data.errors) {
       console.log(data.errors);
     } else {
-      // console.log('response:', data);
       getAddressBook();
     }
   }
 
-  // const [selection, setSelection] = useState({ id: null, element: null });
-  // const [selection, setSelection] = useState(null);
-  // const [selection, setSelection] = useState(selected ? selected : null);
-
   function handleAddressSelect({ id, currentItem }) {
-    console.log('clicked', id);
-
     selectionState.set(id);
-    // setSelection(id);
-    // selection.element &&
-    //   selection.element.current.classList.remove(style.selected);
-    // currentItem && currentItem.current.classList.add(style.selected);
-    // setSelection({ id, element: currentItem });
   }
 
   useEffect(async () => {
     await getAddressBook().then((addressBook) => {
       if (selectable) {
-        console.log('useeffect:', selectionState.get());
-
-        if (!selectionState.get()) {
+        if (!selectionState.get() || !selectionState.found) {
           selectionState.set(
             selectionType == 'shipping'
               ? addressBook.defaultShippingAddress
+                ? addressBook.defaultShippingAddress
+                : addressBook.book[0] && addressBook.book[0]._id
               : addressBook.defaultBillingAddress
+              ? addressBook.defaultBillingAddress
+              : addressBook.book[0] && addressBook.book[0]._id
           );
         }
       }
-      // console.log('initialization:', addressBook.defaultShippingAddress)
-      // if (selectable) {
-      //   console.log('initial', selectionState.get());
-      //   if (selectionState.get().length == 0) {
-      //     selectionState.set(
-      //       selectionType == 'shipping'
-      //         ? addressBook.defaultShippingAddress
-      //         : addressBook.defaultBillingAddress
-      //     );
-      //   }
-      // }
     });
-
-    // console.log(selection);
   }, []);
 
   switch (view.current) {
@@ -185,6 +162,9 @@ export default function AddressBook({
                     address._id === addressBook.defaultBillingAddress;
 
                   let selected = selectionState.get() === address._id;
+                  if (!selectionState.found && selected) {
+                    selectionState.found = true;
+                  }
 
                   return (
                     <AddressCard
@@ -224,25 +204,16 @@ export default function AddressBook({
             <Button
               label={'Next'}
               onClickHandler={() => {
-                // if (selection) {
-                //   next(selection);
-                // }
                 if (selectionState.get()) {
                   next();
                 } else {
                   console.log('Not Selected');
                 }
-                // if (selection.id) {
-                //   next(selection.id);
-                // } else {
-                //   console.log('Not Selected');
-                // }
               }}
             />
           )}
         </>
       );
-      break;
     }
     case 'add': {
       return (
@@ -257,7 +228,6 @@ export default function AddressBook({
           totalAddresses={addressBook.book.length}
         />
       );
-      break;
     }
 
     case 'update': {
@@ -275,11 +245,9 @@ export default function AddressBook({
           totalAddresses={addressBook.book.length}
         />
       );
-      break;
     }
     case 'loading': {
       return <div>Loading...</div>;
-      break;
     }
     default: {
       return <h3>Unable to load</h3>;

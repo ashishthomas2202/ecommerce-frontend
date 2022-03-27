@@ -6,41 +6,38 @@ import { Store } from '../../utils/store';
 import { useRouter } from 'next/router';
 
 export default function Billing({ session }) {
-  const { state, dispatch } = useContext(Store);
   const router = useRouter();
+
+  // To get/set the billing address selected by user
+  const { state, dispatch } = useContext(Store);
+
+  // To track the billingAddress selected by the user
   const [billingAddressState, setBillingAddressState] = useState(
     state.addressBook.billingAddress
   );
 
-  // const [shippingAddressId, setShippingAddressId] = useState('');
-
-  // const [reload, setReload] = useState(false);
-
+  // To reinitialize the billing address stored in the state with the updated store context data
   useEffect(() => {
     const { addressBook } = state;
 
-    console.log('bbilling', addressBook.billingAddress);
-    // setShippingAddressId(addressBook.shippingAddress);
     setBillingAddressState(addressBook.billingAddress);
-    // setReload(true);
-    // setReload(false);
   }, [state]);
 
+  // To handle the "Back" button click
   function handleBack() {
-    // console.log('Selected Shipping', id);
+    // take the user to previous page
     router.back();
   }
-
+  //To handle the 'next' button click
   function handleNext(id) {
-    console.log('dispatch', billingAddressState);
+    // storing the selected billing address in the context
     dispatch({
       type: 'ADD_BILLING_ADDRESS',
       payload: { id: billingAddressState },
     });
 
-    // console.log('next:', shippingAddressState);
-    router.push(UserSettings.payment.link);
-    // setShippingAddress(id);
+    // take the user to next page
+    router.push(Pages.checkout.billing.redirect);
   }
 
   return (
@@ -48,58 +45,31 @@ export default function Billing({ session }) {
       title={'Billing Address'}
       selectable={true}
       selectionType={'billing'}
+      selectionState={{
+        get: () => billingAddressState,
+        set: (value) => setBillingAddressState(value),
+      }}
       next={handleNext}
       back={handleBack}
-      selectionState={{
-        get: () => {
-          console.log('get', billingAddressState);
-          return billingAddressState;
-        },
-        set: (value) => {
-          console.log('set', value);
-          setBillingAddressState(value);
-        },
-      }}
     />
   );
-  // useEffect(() => {
-  //   console.log('state', setShippingAddressState);
-  // }, [shippingAddressState]);
-
-  // return (
-  //   <>
-  //     {!reload ? (
-  //       <AddressBook
-  //         title={'Shipping Address'}
-  //         selectable={true}
-  //         selectionType={'shipping'}
-  //         next={handleNext}
-  //         back={handleBack}
-  //         // selected={shippingAddressId}
-  //         selectionState={{
-  //           get: shippingAddressState,
-  //           set: (value) => {
-  //             console.log('set', value);
-  //             setShippingAddressState(value);
-  //           },
-  //         }}
-  //       />
-  //     ) : (
-  //       <p>Loading</p>
-  //     )}
-  //   </>
-  // );
 }
 
 export async function getServerSideProps(context) {
+  // getting the session if present
   const session = await getSession({ req: context.req });
+
+  // User not authenticated/ session not present
   if (!session) {
     return {
+      // redirecting the user to signin page - redirect back once authenticated
       redirect: {
-        destination: `${UserSettings.signin.link}?redirect=${UserSettings.billing.link}`,
+        destination: `${UserSettings.signin.link}?redirect=${Pages.checkout.billing.link}`,
       },
     };
-  } else {
+  }
+  // User is authenticated
+  else {
     return {
       props: {
         session,
@@ -107,51 +77,3 @@ export async function getServerSideProps(context) {
     };
   }
 }
-
-// import React from 'react';
-// import { User as UserSettings } from '../../utils/settings';
-// import { getSession } from 'next-auth/react';
-// import AddressBook from '../../components/ui/Address/AddressBookView';
-// import { useRouter } from 'next/router';
-
-// export default function Billing({ session }) {
-//   const router = useRouter();
-
-//   function handleBack() {
-//     // console.log('Selected Shipping', id);
-//     router.back();
-//   }
-
-//   function handleNext(id) {
-//     console.log('Selected Billing', id);
-//     router.push(UserSettings.payment.link);
-//   }
-
-//   // return (
-//   //   <AddressBook
-//   //     title={'Billing Address'}
-//   //     selectable={true}
-//   //     selectionType={'billing'}
-//   //     next={handleNext}
-//   //     back={handleBack}
-//   //   />
-//   // );
-//   return <p>billing</p>;
-// }
-
-// export async function getServerSideProps(context) {
-//   const session = await getSession({ req: context.req });
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: `${UserSettings.signin.link}?redirect=${UserSettings.billing.link}`,
-//       },
-//     };
-//   } else {
-//     return {
-//       props: {
-//         session,
-//       },
-//     };
-//   }
-// }

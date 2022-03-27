@@ -85,7 +85,7 @@ function Header() {
         <li>Profile</li>
         <li>My Account</li>
         <li>
-          <Link href={'/user/addressBook'}>
+          <Link href={UserSettings.addressBook.link}>
             <a>Address Book</a>
           </Link>
         </li>

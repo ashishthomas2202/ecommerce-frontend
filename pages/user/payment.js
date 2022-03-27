@@ -1,5 +1,5 @@
 import React from 'react';
-import { User as UserSettings } from '../../utils/settings';
+import { User as UserSettings, Pages } from '../../utils/settings';
 import { getSession } from 'next-auth/react';
 // import AddressBook from '../../components/ui/Address/AddressBookView';
 import { useRouter } from 'next/router';
@@ -34,7 +34,7 @@ export async function getServerSideProps(context) {
   if (!session) {
     return {
       redirect: {
-        destination: `${UserSettings.signin.link}?redirect=${UserSettings.billing.link}`,
+        destination: `${UserSettings.signin.link}?redirect=${Pages.checkout.billing.link}`,
       },
     };
   } else {
