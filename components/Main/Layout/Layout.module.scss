@@ -2,5 +2,6 @@
 
 .page {
   min-height: 65vh;
-  padding: $page-padding;
+  position: relative;
+  margin: $page-padding;
 }

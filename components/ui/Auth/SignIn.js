@@ -1,35 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import Input from '../../../components/ui/Basic/Input/Input';
-import { useRouter } from 'next/router';
+import Input from '../Basic/Input/Input';
 import { User } from '../../../utils/settings';
-import { signIn, getSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 
-export default function Signin() {
+export default function SignIn({ signup, authenticate }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const router = useRouter();
-  const { redirect } = router.query; // signin?redirect=/shipping
+  const onSubmit = async (formData, e) => {
+    e.preventDefault();
 
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    getSession().then((session) => {
-      if (session) {
-        router.replace(redirect ? redirect : User.signin.redirect);
-      } else {
-        setIsLoading(false);
-      }
-    });
-  }, []);
-  const onSubmit = async (formData) => {
     let credentials = { password: formData.password };
-
     if (formData.userId) {
       credentials['userId'] = formData.userId;
     } else if (formData.username) {
@@ -44,15 +29,16 @@ export default function Signin() {
     });
 
     if (!result.error) {
-      router.replace(redirect ? redirect : User.signin.redirect);
+      //   authenticated();
+      authenticate();
+      //   router.replace(redirect ? redirect : User.signin.redirect);
     } else {
       console.log(result);
     }
-
     return;
   };
 
-  const signInForm = (
+  return (
     <div>
       <h1>Sign In</h1>
       <br />
@@ -102,24 +88,17 @@ export default function Signin() {
       </form>
 
       <p>
-        {`Don't have an account?`}
-        <Link
-          href={
-            redirect
-              ? `${User.signup.link}?redirect=${redirect}`
-              : User.signup.link
-          }
-          passHref
+        Don't have an account?
+        <span
+          style={{ cursor: 'pointer' }}
+          onClick={() => {
+            signup();
+          }}
         >
+          {' '}
           Sign Up
-        </Link>
+        </span>
       </p>
     </div>
   );
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  } else {
-    return <div>{signInForm}</div>;
-  }
 }
