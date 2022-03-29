@@ -29,7 +29,7 @@ export default function AddressCard({
       ref={cardRef}
       {...(selectable && {
         onClick: () => {
-          handleSelect({ id: _id, currentItem: cardRef });
+          handleSelect({ id: _id });
         },
       })}
     >

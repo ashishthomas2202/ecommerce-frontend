@@ -55,6 +55,7 @@ export const Pages = {
   ],
   checkout: {
     link: '/checkout',
+    redirect: '/',
 
     shoppingBag: {
       link: '/shoppingBag',
@@ -78,6 +79,10 @@ export const Pages = {
 // Pages.checkout.shoppingBag.redirect = Pages.checkout.shipping.link;
 // Pages.checkout.shipping.redirect = Pages.checkout.billing.link;
 // Pages.checkout.billing.redirect = Pages.checkout.payment.link;
+export const Checkout = {
+  link: '/checkout',
+  redirect: '/',
+};
 
 export const Social = {
   list: [
