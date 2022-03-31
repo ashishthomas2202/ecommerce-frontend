@@ -11,5 +11,5 @@ export default function Auth() {
       router.replace(User.auth.redirect);
     }
   }
-  return <AuthComponent status={(value) => handleAuthentication(value)} />;
+  return <AuthComponent handleAuthentication={handleAuthentication} />;
 }

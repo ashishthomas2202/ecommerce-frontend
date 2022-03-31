@@ -43,7 +43,7 @@ export default function AddressFormView({
         if (data.errors) {
           console.log(data.errors);
         } else {
-          console.log(data);
+          console.log(':Updated:', data);
           updated();
         }
         break;

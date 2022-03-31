@@ -1,7 +1,12 @@
 import React from 'react';
 import AddressBookView from '../../components/ui/Address/AddressBookView';
 export default function AddressBook() {
-  return <AddressBookView />;
+  return (
+    <div>
+      <h1>Address Book</h1>
+      <AddressBookView />
+    </div>
+  );
 }
 // import React, { useState, useEffect } from 'react';
 

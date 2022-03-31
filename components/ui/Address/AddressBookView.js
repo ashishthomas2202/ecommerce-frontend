@@ -7,14 +7,18 @@ import AddressFormView from './AddressFormView';
 export default function AddressBookView({
   title = 'AddressBookView',
   selectable,
-  selection = { set: () => {}, selected: null },
+  selection = {
+    initial: () => {},
+    set: () => {},
+    notFound: () => {},
+    selected: () => {},
+  },
 }) {
   const views = {
     addressBook: 'addressBook',
     addAddress: 'addAddress',
   };
 
- 
   function handleAddressBookClick(type) {
     switch (type) {
       case 'add':
@@ -46,10 +50,11 @@ export default function AddressBookView({
           add={() => handleAddressBookClick('add')}
           selectable={selectable}
           selection={{
+            initial: (value) => selection.initial(value),
             set: (id) => selection.set(id),
-            selected: selection.selected,
+            notFound: () => selection.notFound(),
+            selected: () => selection.selected(),
           }}
-          // selectionState={(set, get)}
         />
       </View>
       <View name={views.addAddress}>

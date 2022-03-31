@@ -1,50 +1,56 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import AddressBookView from '../Address/AddressBookView';
-import { Store } from '../../../utils/store';
+import AddressBook from '../Address/AddressBook';
 
 export default function Shipping({ back, next }) {
   const router = useRouter();
 
-  const { state, dispatch } = useContext(Store);
   const [selectedShipping, setSelectedShipping] = useState(null);
 
-  useEffect(() => {
-    const {
-      addressBook: { shippingAddress },
-    } = state;
+  function handleSelection(value) {
+    // console.log(type, value);
+    // switch (type) {
+    //   case 'set': {
+    //     console.log('Shipping', id);
+    //     setSelectedShipping(id);
+    //     break;
+    //   }
+    // }
 
-    setSelectedShipping(shippingAddress);
-  }, [state]);
-
-  // function handleStatus() {
-  //   console.log('shipping status');
-  // }
-
-  function handleSelection(id, type) {
-    switch (type) {
-      case 'set':
-        // console.log('Shipping-set', id);
-        setSelectedShipping(id);
-        dispatch({
-          type: 'ADD_SHIPPING_ADDRESS',
-          payload: { id: id },
-        });
-        break;
-    }
+    console.log('set:', value);
+    setSelectedShipping(value);
   }
   return (
     <div>
       <h1>Shipping Address</h1>
-      <AddressBookView
+      <AddressBook
         title={'Shipping'}
-        selectable
-        selection={{
-          set: (id) => handleSelection(id, 'set'),
-          selected: selectedShipping,
+        selectable={{
+          state: true,
+          set: (value) => handleSelection(value),
         }}
-        // status={handleStatus}
       />
+      {/* <AddressBookView
+        title={'Shipping'}
+        selectable={{
+          state: true,
+          set: (id) => {
+            handleSelection({ type: 'set', id });
+          },
+        }} 
+        // selection={{
+        //   initial: (value) => {
+        //     console.log(value);
+        //     return handleSelection({ type: 'initial', value });
+        //   },
+        //   set: (id) => handleSelection({ type: 'set', id }),
+        //   notFound: () => handleSelection({ type: 'notFound' }),
+        //   selected: () => selectedShipping,
+        // }}
+        // status={handleStatus}
+      // />
+      */}
       <button
         onClick={() => {
           back();

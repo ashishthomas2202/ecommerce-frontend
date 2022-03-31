@@ -3,7 +3,7 @@ import { ViewSelector, View } from '../Basic/View/View';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
-export default function Auth({ status }) {
+export default function Auth({ handleAuthentication }) {
   const views = {
     signup: 'signup',
     signin: 'signin',
@@ -18,7 +18,7 @@ export default function Auth({ status }) {
             setSelect(views.signup);
           }}
           authenticate={() => {
-            status('authenticated');
+            handleAuthentication('authenticated');
           }}
         />
       </View>

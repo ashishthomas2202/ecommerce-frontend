@@ -10,6 +10,7 @@ export default function AddressCard({
   defaultBillingAddress,
   defaultHandler,
   selectable = false,
+  title = '',
   selected,
   handleSelect,
 }) {
@@ -18,13 +19,34 @@ export default function AddressCard({
 
   const cardRef = useRef();
 
+  let order = 2;
+
+  if (selectable) {
+    if (title.toLowerCase() == 'shipping') {
+      if (defaultShippingAddress) {
+        order = 1;
+      }
+      defaultBillingAddress = false;
+    }
+    if (title.toLowerCase() == 'billing') {
+      if (defaultBillingAddress) {
+        order = 1;
+      }
+      defaultShippingAddress = false;
+    }
+  } else {
+    if (defaultShippingAddress || defaultBillingAddress) {
+      order = 1;
+    }
+  }
+
   return (
     <div
       className={selected ? style.selected : ''}
       style={{
         height: '100%',
         border: '1px solid #000000',
-        order: defaultShippingAddress || defaultBillingAddress ? 1 : 2,
+        order: order,
       }}
       ref={cardRef}
       {...(selectable && {

@@ -34,7 +34,11 @@ function reducer(state, action) {
       return { ...state, darkMode: false };
     case 'ADD_SHIPPING_ADDRESS': {
       let data = action.payload.id;
-      LocalStorage.setItem('shippingAddress', JSON.stringify(data));
+      if (data) {
+        LocalStorage.setItem('shippingAddress', JSON.stringify(data));
+      } else {
+        LocalStorage.removeItem('shippingAddress');
+      }
       return {
         ...state,
         addressBook: { ...state.addressBook, shippingAddress: data },
@@ -42,7 +46,11 @@ function reducer(state, action) {
     }
     case 'ADD_BILLING_ADDRESS': {
       let data = action.payload.id;
-      LocalStorage.setItem('billingAddress', JSON.stringify(data));
+      if (data) {
+        LocalStorage.setItem('billingAddress', JSON.stringify(data));
+      } else {
+        LocalStorage.removeItem('billingAddress');
+      }
       return {
         ...state,
         addressBook: { ...state.addressBook, billingAddress: data },

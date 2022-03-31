@@ -31,7 +31,7 @@ export default function ProtectedRoutes({ children }) {
   return (
     <ViewSelector select={select}>
       <View name={views.auth}>
-        <Auth status={(value) => getAuthStatus(value)} />
+        <Auth handleAuthentication={(value) => getAuthStatus(value)} />
       </View>
       <View name={views.loading}>
         <Loading />

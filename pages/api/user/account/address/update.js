@@ -110,11 +110,11 @@ handler.put(async (req, res) => {
     account.addressBook.defaultShippingAddress = result.fields
       .defaultShippingAddress
       ? address._id
-      : null;
+      : account.addressBook.defaultShippingAddress;
     account.addressBook.defaultBillingAddress = result.fields
       .defaultBillingAddress
       ? address._id
-      : null;
+      : account.addressBook.defaultBillingAddress;
 
     try {
       await address.save();
