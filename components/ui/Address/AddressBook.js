@@ -78,8 +78,6 @@ export default function AddressBook({
     }
   }
 
-
-
   function handleAddressFormClick(type) {
     switch (type) {
       case 'add':
@@ -95,8 +93,6 @@ export default function AddressBook({
         break;
     }
   }
-
-  
 
   ///////////////////////////////////////////////////////////////////////
   const [selectedAddress, setSelectedAddress] = useState({
@@ -165,23 +161,22 @@ export default function AddressBook({
   /////////////////////////////////////////////////////////////////////////
   // let intervalId = null;
 
-
   function handleAddressSelect({ id }) {
     console.log('clicked', id);
-    // switch (title.toLowerCase()) {
-    //   case 'shipping':
-    //     dispatch({
-    //       type: 'ADD_SHIPPING_ADDRESS',
-    //       payload: { id: id ? id : null },
-    //     });
-    //     break;
-    //   case 'billing':
-    //     dispatch({
-    //       type: 'ADD_BILLING_ADDRESS',
-    //       payload: { id: id ? id : null },
-    //     });
-    //     break;
-    // }
+    switch (title.toLowerCase()) {
+      case 'shipping':
+        dispatch({
+          type: 'ADD_SHIPPING_ADDRESS',
+          payload: { id: id ? id : null },
+        });
+        break;
+      case 'billing':
+        dispatch({
+          type: 'ADD_BILLING_ADDRESS',
+          payload: { id: id ? id : null },
+        });
+        break;
+    }
   }
 
   function validateAddress() {
