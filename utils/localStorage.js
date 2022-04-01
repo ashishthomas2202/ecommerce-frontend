@@ -8,7 +8,12 @@ function setItem(key, value) {
 
 function getItem(key) {
   if (typeof window !== 'undefined') {
-    return localStorage.getItem(key);
+    let str = localStorage.getItem(key);
+    if (str && str[0] === '"' && str[str.length - 1] === '"') {
+      let result = str.substring(1, str.length - 1);
+      return result;
+    }
+    return str;
   }
   return null;
 }

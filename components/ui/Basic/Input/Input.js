@@ -6,6 +6,7 @@ export default function Input({
   className,
   type = 'text',
   label = 'input',
+  initialValue,
   customName,
   register,
   required,
@@ -57,8 +58,9 @@ export default function Input({
 
   return (
     <div className={className ? className : styles.Input}>
-      <label>{label}: </label>
+      {type !== 'checkbox' ? <label>{label}: </label> : ''}
       <input type={type} {...register(name, options)} />
+      {type == 'checkbox' ? <label>{label}: </label> : ''}
       <p>{message ? message : ''}</p>
       <p> {errors ? (errors[name] ? errors[name].message : '') : ''}</p>
     </div>

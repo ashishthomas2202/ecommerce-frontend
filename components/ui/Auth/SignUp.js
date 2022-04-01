@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import Input from '../../../components/ui/Basic/Input/Input';
-import { useRouter } from 'next/router';
-import { getSession } from 'next-auth/react';
+import Input from '../Basic/Input/Input';
 import { User } from '../../../utils/settings';
 import axios from 'axios';
 
-export default function SignUp() {
+export default function SignUp({ signin }) {
   const {
     register,
     handleSubmit,
@@ -15,26 +12,9 @@ export default function SignUp() {
     formState: { errors },
   } = useForm();
 
-  const router = useRouter();
-  const { redirect } = router.query; // signup?redirect=/signin
+  const onSubmit = async (formData, e) => {
+    e.preventDefault();
 
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    getSession().then((session) => {
-      if (session) {
-        router.replace(
-          redirect
-            ? `${User.signin.link}?redirect=${redirect}`
-            : User.signup.redirect
-        );
-      } else {
-        setIsLoading(false);
-      }
-    });
-  }, []);
-
-  const onSubmit = async (formData) => {
     if (formData.password !== formData.confirmPassword) {
       setError('confirmPassword', {
         type: 'manual',
@@ -47,15 +27,10 @@ export default function SignUp() {
     if (data.errors) {
       console.log(data.errors);
     } else {
-      router.replace(
-        redirect
-          ? `${User.signin.link}?redirect=${redirect}`
-          : User.signup.redirect
-      );
+      signin();
     }
   };
-
-  const SignUpForm = (
+  return (
     <div>
       <h1>Sign Up</h1>
       <br />
@@ -116,17 +91,21 @@ export default function SignUp() {
         <button type="submit">Sign Up</button>
       </form>
       <p>
-        {`Already have an account?`}
+        {/* {`Already have an account?`}
         <Link href={User.signin.link} passHref>
           Sign In
-        </Link>
+        </Link> */}
+        Don't have an account?
+        <span
+          style={{ cursor: 'pointer' }}
+          onClick={() => {
+            signin();
+          }}
+        >
+          {' '}
+          Sign In
+        </span>
       </p>
     </div>
   );
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  } else {
-    return <div>{SignUpForm}</div>;
-  }
 }

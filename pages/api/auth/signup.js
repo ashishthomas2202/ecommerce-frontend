@@ -4,12 +4,13 @@ import User from '../../../models/User';
 import _ from 'lodash';
 
 import { SignUpValidator } from '../../../utils/validation/signUpFormValidator';
+import Account from '../../../models/Account';
 async function handler(req, res) {
   let data = req.body;
 
   let fields = {
-    firstName: data.firstName ? data.firstName : null,
-    lastName: data.lastName ? data.lastName : null,
+    firstName: data.firstName ? _.capitalize(data.firstName) : null,
+    lastName: data.lastName ? _.capitalize(data.lastName) : null,
     password: data.password ? data.password : null,
   };
 
@@ -27,8 +28,15 @@ async function handler(req, res) {
     return;
   }
 
-  const newUser = new User(result.fields);
+  const account = new Account();
+
   await db.connect();
+
+  const newAccount = await account.save();
+
+  result.fields['account'] = newAccount._id;
+
+  const newUser = new User(result.fields);
   let response = await newUser
     .save()
     .then((user) => {
@@ -43,7 +51,10 @@ async function handler(req, res) {
 
       res.json({ message: 'User Created Successfully', user: data });
     })
-    .catch((err) => {
+    .catch(async (err) => {
+      // Removing account created
+      await newAccount.remove();
+
       if (err.errors) {
         let firstError = Object.values(err.errors)[0];
         let errorObject = {};
@@ -62,6 +73,5 @@ async function handler(req, res) {
     });
 
   await db.disconnect();
-  //   console.log(await User.find({}));
 }
 export default handler;

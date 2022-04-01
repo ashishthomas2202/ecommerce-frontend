@@ -73,8 +73,7 @@ function Header() {
   }
 
   const userItems = [
-    { name: 'Sign Up', link: UserSettings.signup.link },
-    { name: 'Sign In', link: UserSettings.signin.link },
+    { name: 'Sign In', link: UserSettings.auth.link },
   ];
 
   const user = session ? (
@@ -83,6 +82,11 @@ function Header() {
       <ul>
         <li>Profile</li>
         <li>My Account</li>
+        <li>
+          <Link href={UserSettings.addressBook.link}>
+            <a>Address Book</a>
+          </Link>
+        </li>
         <li>
           <button onClick={handleSignOut}>Sign Out</button>
         </li>

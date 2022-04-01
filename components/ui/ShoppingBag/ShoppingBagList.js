@@ -9,6 +9,7 @@ import Link from 'next/link';
 import Select from '../Basic/Select/Select';
 import { Store } from '../../../utils/store';
 import { useRouter } from 'next/router';
+import { User, Pages } from '../../../utils/settings';
 
 export default function ShoppingBagList() {
   const { state, dispatch } = useContext(Store);
@@ -37,7 +38,7 @@ export default function ShoppingBagList() {
       type: 'BAG_REMOVE_ITEM',
       payload: { ...item },
     });
-    router.push('/shoppingBag');
+    // router.push('/shoppingBag');
   }
   function handleQuantityChange(item, quantity) {
     dispatch({
@@ -49,12 +50,12 @@ export default function ShoppingBagList() {
     });
   }
   function handleCheckout() {
-    router.push('/user/shipping');
+    router.push(Pages.checkout.shoppingBag.redirect);
   }
 
   return (
     <div>
-      {shoppingBag.totalItems === 0 ? (
+      {shoppingBag.totalItems == 0 ? (
         <h1>Bag is empty</h1>
       ) : (
         <div>

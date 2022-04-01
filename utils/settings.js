@@ -23,21 +23,28 @@ export const User = {
   password: {
     minLength: 6,
   },
-  signin: {
-    //false = never, "3" = 3 milliseconds ,"3s" = 3 seconds,"3h" = 3 hours,"3d" = 3 days,"3m" = 3 months ...
-    expires: false,
-    redirect: '/',
-    link: '/user/auth/signin',
-  },
-  signup: {
-    redirect: '/', // changed to login page - check lines after the User object
-    link: '/user/auth/signup',
-  },
-  shipping: {
-    link: '/user/shipping',
+
+  auth: { link: '/user/auth', redirect: '/' },
+
+  // signin: {
+  //   //false = never, "3" = 3 milliseconds ,"3s" = 3 seconds,"3h" = 3 hours,"3d" = 3 days,"3m" = 3 months ...
+  //   expires: false,
+  //   redirect: '/',
+  //   link: '/user/auth/signin',
+  // },
+  // signup: {
+  //   redirect: '/', // changed to login page - check lines after the User object
+  //   link: '/user/auth/signup',
+  // },
+  addressBook: {
+    link: '/user/addressBook',
   },
 };
-User.signup.redirect = User.signin.link;
+// User.signup.redirect = User.signin.link;
+
+export const Address = {
+  country: { default: 'US' },
+};
 
 export const Pages = {
   main: [
@@ -46,6 +53,35 @@ export const Pages = {
     { name: 'About', link: '/about' },
     { name: 'Contact', link: '/contact' },
   ],
+  checkout: {
+    link: '/checkout',
+    redirect: '/',
+
+    shoppingBag: {
+      link: '/shoppingBag',
+      redirect: '/checkout', // value changed! - check lines after the Pages object
+    },
+    shipping: {
+      link: '/user/shipping',
+      redirect: '/',
+    },
+    billing: {
+      link: '/user/billing',
+      redirect: '/',
+    },
+    payment: {
+      link: '/user/payment',
+      redirect: '/',
+    },
+  },
+};
+
+// Pages.checkout.shoppingBag.redirect = Pages.checkout.shipping.link;
+// Pages.checkout.shipping.redirect = Pages.checkout.billing.link;
+// Pages.checkout.billing.redirect = Pages.checkout.payment.link;
+export const Checkout = {
+  link: '/checkout',
+  redirect: '/',
 };
 
 export const Social = {

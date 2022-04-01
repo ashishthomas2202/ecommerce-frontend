@@ -6,32 +6,24 @@ export const Store = createContext();
 const initialState = {
   darkMode: false,
   shoppingBag: {
-    initialize: function () {
-      let bagItems = LocalStorage.getItem('bagItems');
-      this.bagItems = bagItems ? JSON.parse(bagItems) : [];
-
-      this.bagItems.forEach((item) => {
-        this.totalItems += item.quantity;
-      });
-    },
     bagItems: LocalStorage.getItem('bagItems')
       ? JSON.parse(LocalStorage.getItem('bagItems'))
       : [],
-    totalItems: LocalStorage.getItem('bagItems')
-      ? () => {
-          let totalItems = 0;
-          let bagItems = JSON.parse(LocalStorage.getItem('bagItems'));
-
-          for (let i = 0; i < bagItems.length; i++) {
-            totalItems += bagItems[i].quantity;
-          }
-          return totalItems;
-        }
+    totalItems: LocalStorage.getItem('totalItems')
+      ? JSON.parse(LocalStorage.getItem('totalItems'))
       : 0,
   },
-  userInfo: LocalStorage.getItem('userInfo')
-    ? JSON.parse(LocalStorage.getItem('userInfo'))
-    : null,
+  // userInfo: LocalStorage.getItem('userInfo')
+  //   ? JSON.parse(LocalStorage.getItem('userInfo'))
+  //   : null,
+  addressBook: {
+    shippingAddress: LocalStorage.getItem('shippingAddress')
+      ? LocalStorage.getItem('shippingAddress')
+      : '',
+    billingAddress: LocalStorage.getItem('billingAddress')
+      ? LocalStorage.getItem('billingAddress')
+      : '',
+  },
 };
 
 function reducer(state, action) {
@@ -40,15 +32,29 @@ function reducer(state, action) {
       return { ...state, darkMode: true };
     case 'DARK_MODE_OFF':
       return { ...state, darkMode: false };
-
-    case 'USER_SIGNIN': {
-      let data = action.payload;
-      LocalStorage.setItem('userInfo', JSON.stringify(data));
-      return { ...state, userInfo: data };
+    case 'ADD_SHIPPING_ADDRESS': {
+      let data = action.payload.id;
+      if (data) {
+        LocalStorage.setItem('shippingAddress', JSON.stringify(data));
+      } else {
+        LocalStorage.removeItem('shippingAddress');
+      }
+      return {
+        ...state,
+        addressBook: { ...state.addressBook, shippingAddress: data },
+      };
     }
-    case 'USER_SIGNOUT': {
-      LocalStorage.removeItem('userInfo');
-      return { ...state, userInfo: null };
+    case 'ADD_BILLING_ADDRESS': {
+      let data = action.payload.id;
+      if (data) {
+        LocalStorage.setItem('billingAddress', JSON.stringify(data));
+      } else {
+        LocalStorage.removeItem('billingAddress');
+      }
+      return {
+        ...state,
+        addressBook: { ...state.addressBook, billingAddress: data },
+      };
     }
     case 'BAG_ADD_ITEM': {
       let itemAdded = false;
@@ -72,13 +78,13 @@ function reducer(state, action) {
       });
 
       LocalStorage.setItem('bagItems', JSON.stringify(bagItems));
+      LocalStorage.setItem('totalItems', JSON.stringify(totalItems));
 
       return {
         ...state,
         shoppingBag: { ...state.shoppingBag, bagItems, totalItems },
       };
     }
-
     case 'BAG_UPDATE_ITEM': {
       let updateItem = action.payload;
       let bagItems = state.shoppingBag.bagItems;
@@ -95,13 +101,13 @@ function reducer(state, action) {
       });
 
       LocalStorage.setItem('bagItems', JSON.stringify(bagItems));
+      LocalStorage.setItem('totalItems', JSON.stringify(totalItems));
 
       return {
         ...state,
         shoppingBag: { ...state.shoppingBag, bagItems, totalItems },
       };
     }
-
     case 'BAG_REMOVE_ITEM': {
       let removeItem = action.payload;
       let bagItems = state.shoppingBag.bagItems;
@@ -114,6 +120,7 @@ function reducer(state, action) {
       });
 
       LocalStorage.setItem('bagItems', JSON.stringify(bagItems));
+      LocalStorage.setItem('totalItems', JSON.stringify(totalItems));
 
       return {
         ...state,
