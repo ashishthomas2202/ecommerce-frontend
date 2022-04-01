@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { ViewSelector, View } from '../components/ui/Basic/View/View';
-import ProtectedRoute from '../components/ui/ProtectedRoute/ProtectedRoute';
+import { ViewSelector, View } from '../../components/ui/Basic/View/View';
+import ProtectedRoute from '../../components/ui/ProtectedRoute/ProtectedRoute';
 import { useRouter } from 'next/router';
-import Loading from '../components/ui/Loading/Loading';
-import Shipping from '../components/ui/Checkout/Shipping';
-import Billing from '../components/ui/Checkout/Billing';
-import Payment from '../components/ui/Checkout/Payment';
-import Checkout from '../components/ui/Checkout/Checkout';
-import { Checkout as CheckoutSettings } from '../utils/settings';
+import Loading from '../../components/ui/Loading/Loading';
+import Shipping from '../../components/ui/Checkout/Shipping';
+import Billing from '../../components/ui/Checkout/Billing';
+import Payment from '../../components/ui/Checkout/Payment';
+import Checkout from '../../components/ui/Checkout/Checkout';
+import { Checkout as CheckoutSettings } from '../../utils/settings';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -23,6 +23,7 @@ export default function CheckoutPage() {
   const [select, setSelect] = useState(views.loading);
 
   useEffect(() => {
+    console.log('query:', router.query.type);
     let defaultView = views.shipping;
     if (
       router.query &&
