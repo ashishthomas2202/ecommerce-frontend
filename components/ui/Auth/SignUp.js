@@ -27,11 +27,6 @@ export default function SignUp({ signin }) {
     if (data.errors) {
       console.log(data.errors);
     } else {
-      //   router.replace(
-      //     redirect
-      //       ? `${User.signin.link}?redirect=${redirect}`
-      //       : User.signup.redirect
-      //   );
       signin();
     }
   };

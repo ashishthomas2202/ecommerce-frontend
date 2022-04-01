@@ -29,9 +29,7 @@ export default function SignIn({ signup, authenticate }) {
     });
 
     if (!result.error) {
-      //   authenticated();
       authenticate();
-      //   router.replace(redirect ? redirect : User.signin.redirect);
     } else {
       console.log(result);
     }

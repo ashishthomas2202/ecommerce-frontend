@@ -14,6 +14,7 @@ export default function AddressBook({
     set: () => {},
   },
 }) {
+  
   /************************Handle View*********************/
   const views = {
     addressGrid: 'addressGrid',

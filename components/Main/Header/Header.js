@@ -73,13 +73,11 @@ function Header() {
   }
 
   const userItems = [
-    // { name: 'Sign Up', link: UserSettings.signup.link },
     { name: 'Sign In', link: UserSettings.auth.link },
   ];
 
   const user = session ? (
     <div>
-      {/* {console.log(session)} */}
       <button>Hi {session.user.firstName}</button>
       <ul>
         <li>Profile</li>
